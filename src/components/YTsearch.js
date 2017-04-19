@@ -15,8 +15,8 @@ class YTsearch extends Component {
     this.handleUpdateInput = this.handleUpdateInput.bind(this);
     this.handleNewRequest = this.handleNewRequest.bind(this);
     this.dataSourceConfig = {
-      text: 'description',
-      value: 'videoId',
+      text: 'title',
+      value: 'props',
     };
     this.state = {
       dataSource: [],
@@ -45,20 +45,28 @@ class YTsearch extends Component {
       maxResults: 10,
     };
 
+    // call Youtube API to search for videos
     this.YoutubeSearch.search(params, (err, data) => {
       if (err) return console.log(err);
+      console.log(data);
       const dataSource = data.items.map(query => {
         return {
-          description: query.snippet.title,
-          videoId: query.id.videoId,
+          title: query.snippet.title,
+          props: {
+            videoId: query.id.videoId,
+            thumb: query.snippet.thumbnails.default.url,
+          },
         };
       });
+
       return this.setState({
         dataSource,
+
       });
     });
   }
 
+  // Add music video to playlist
   handleNewRequest(searchValue) {
     const params = {
       part: 'snippet, id',
@@ -67,10 +75,7 @@ class YTsearch extends Component {
       maxResults: 10,
     };
     console.log(searchValue);
-    this.YoutubeSearch.search(params, function (err, data) {
-      if (err) return console.log(err);
       // TODO: dispatch action to update redux state of playlist
-    });
   }
 
   render() {
@@ -82,8 +87,8 @@ class YTsearch extends Component {
           onUpdateInput={this.handleUpdateInput} // callback for update on form
           onNewRequest={this.handleNewRequest} // callback for when user selects
           dataSource={this.state.dataSource} // autocomplete list
-          dataSourceConfig={this.dataSourceConfig}
-          filter={AutoComplete.caseInsensitiveFilter}
+          dataSourceConfig={this.dataSourceConfig} // structure the datasource configuration
+          filter={AutoComplete.caseInsensitiveFilter} // normalize the autocomplete filter
         />
       </MuiThemeProvider>
     );
