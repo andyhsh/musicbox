@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Youtube from 'react-youtube';
 
-class Player extends Component {
+class YoutubeVideo extends Component {
 
   static onReady(e) {
     // access to player in all event handlers via event.target
@@ -23,12 +23,12 @@ class Player extends Component {
 
     return (
       <Youtube
-        videoId="otYHF8jaLjw"
+        videoId={this.props.videoId} // "otYHF8jaLjw"
         opts={opts}
-        onReady={Player.onReady}
+        onReady={YoutubeVideo.onReady}
       />
     );
   }
 }
 
-export default Player;
+export default YoutubeVideo;
