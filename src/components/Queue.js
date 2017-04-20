@@ -4,7 +4,8 @@ class Queue extends Component {
   render() {
     return (
       <div>
-        Hello from Queue
+        <img src={`${this.props.thumb}`} />
+        <p>{this.props.title}</p>
       </div>
     );
   }
