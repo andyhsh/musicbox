@@ -1,5 +1,6 @@
 const ADD_PLAYLIST = 'ADD_PLAYLIST';
 const DELETE_PLAYLIST = 'DELETE_PLAYLIST';
+const NEXT_PLAYLIST = 'NEXT_PLAYLIST';
 const INITIAL_STATE = {
   currentVideo: {
     title: '',
@@ -10,4 +11,4 @@ const INITIAL_STATE = {
   playList: [],
 };
 
-export { ADD_PLAYLIST, DELETE_PLAYLIST, INITIAL_STATE };
+export { ADD_PLAYLIST, DELETE_PLAYLIST, NEXT_PLAYLIST, INITIAL_STATE };

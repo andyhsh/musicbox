@@ -12,11 +12,11 @@ import Queue from '../components/Queue';
 
 class Playlist extends Component {
   renderPlaylist() {
-    return this.props.playlist.map(video => {
+    return this.props.playlist.map((video, index) => {
       // TODO: add username property
       return (
         <Queue
-          key={video.videoId}
+          key={index}
           title={video.title}
           thumb={video.thumb}
         />

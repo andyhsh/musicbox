@@ -1,4 +1,4 @@
-import { ADD_PLAYLIST, DELETE_PLAYLIST, INITIAL_STATE } from '../actions/constants';
+import { ADD_PLAYLIST, DELETE_PLAYLIST, NEXT_PLAYLIST, INITIAL_STATE } from '../actions/constants';
 
 export const playlistReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -10,7 +10,12 @@ export const playlistReducer = (state = INITIAL_STATE, action) => {
     case DELETE_PLAYLIST:
       return {
         ...state,
-        playerList: [...state.playList, action.payload],
+        playList: [...state.playList, action.payload],
+      };
+    case NEXT_PLAYLIST:
+      return {
+        ...state,
+        playList: [...state.playList].slice(1),
       };
     default:
       return state;

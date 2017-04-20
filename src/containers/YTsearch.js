@@ -44,10 +44,11 @@ class YTsearch extends Component {
       maxResults: 10,
     };
 
-    // call Youtube API to search for videos
+    // call Youtube API to search for videos, passing in the current input as arguments
     this.YoutubeSearch.search(params, (err, data) => {
       if (err) return console.log(err);
 
+      // set dataSource state for autocomplete suggestions
       const dataSource = data.items.map(query => {
         return {
           title: query.snippet.title,

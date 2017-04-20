@@ -1,4 +1,4 @@
-import { ADD_PLAYLIST, DELETE_PLAYLIST } from './constants';
+import { ADD_PLAYLIST, DELETE_PLAYLIST, NEXT_PLAYLIST } from './constants';
 
 // video object should be structured as {title: '', videoId: '', thumb: '', user: ''}
 export function addPlaylist(video) {
@@ -12,5 +12,11 @@ export function deletePlaylist(video) {
   return {
     type: DELETE_PLAYLIST,
     payload: video,
+  };
+}
+
+export function nextPlaylist() {
+  return {
+    type: NEXT_PLAYLIST,
   };
 }
