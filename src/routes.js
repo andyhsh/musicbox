@@ -5,8 +5,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import YoutubeVideo from './components/Player';
 import Sidebar from './containers/Sidebar';
+import PlayerManager from './containers/PlayerManager';
 import initStore from './store/store';
 
 // get rid off default touch screen time lag for detection of double taps
@@ -17,8 +17,7 @@ const store = initStore();
 
 // Subscribe to state changes in redux
 store.subscribe(() => {
-  const state = store.getState();
-  console.log('New State', state);
+  store.getState();
 });
 
 class Routes extends Component {
@@ -28,7 +27,7 @@ class Routes extends Component {
         <MuiThemeProvider muiTheme={getMuiTheme()}>
           <div className="App">
             <Sidebar />
-            <YoutubeVideo />
+            <PlayerManager />
           </div>
         </MuiThemeProvider>
       </Provider>

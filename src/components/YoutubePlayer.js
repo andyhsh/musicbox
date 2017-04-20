@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Youtube from 'react-youtube';
 
-class YoutubeVideo extends Component {
+class YoutubePlayer extends Component {
 
   static onReady(e) {
     // access to player in all event handlers via event.target
@@ -24,16 +25,20 @@ class YoutubeVideo extends Component {
         modestbranding: 1, // remove watermark/logo
       },
     };
-
+    // sample videoId = "otYHF8jaLjw"
     return (
       <Youtube
-        videoId="otYHF8jaLjw"
+        videoId={this.props.videoId}
         opts={opts}
-        onReady={YoutubeVideo.onReady}
-        onEnd={YoutubeVideo.onEnd}
+        onReady={YoutubePlayer.onReady}
+        onEnd={YoutubePlayer.onEnd}
       />
     );
   }
 }
 
-export default YoutubeVideo;
+YoutubePlayer.propTypes = {
+  videoId: PropTypes.string.isRequired,
+};
+
+export default YoutubePlayer;

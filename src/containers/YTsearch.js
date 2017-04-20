@@ -47,7 +47,7 @@ class YTsearch extends Component {
     // call Youtube API to search for videos
     this.YoutubeSearch.search(params, (err, data) => {
       if (err) return console.log(err);
-      console.log(data);
+
       const dataSource = data.items.map(query => {
         return {
           title: query.snippet.title,
@@ -66,7 +66,6 @@ class YTsearch extends Component {
 
   // Add music video to playlist
   handleNewRequest(searchValue) {
-    console.log(searchValue);
     const video = {
       title: searchValue.title,
       videoId: searchValue.props.videoId,
