@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import YoutubeFinder from 'youtube-finder';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import AutoComplete from 'material-ui/AutoComplete';
+import { addPlaylist } from '../actions/playerlist';
 
 
 class YTsearch extends Component {
@@ -57,7 +60,6 @@ class YTsearch extends Component {
 
       return this.setState({
         dataSource,
-
       });
     });
   }
@@ -65,7 +67,15 @@ class YTsearch extends Component {
   // Add music video to playlist
   handleNewRequest(searchValue) {
     console.log(searchValue);
-      // TODO: dispatch action to update redux state of playlist
+    const video = {
+      title: searchValue.title,
+      videoId: searchValue.props.videoId,
+      thumb: searchValue.props.thumb,
+      // TODO: user property to identify the person who selected the song
+    };
+
+    // dispatch action to update playlist state with new video
+    this.props.addPlaylist(video);
   }
 
   render() {
@@ -83,4 +93,14 @@ class YTsearch extends Component {
   }
 }
 
-export default YTsearch;
+YTsearch.propTypes = {
+  addPlaylist: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addPlaylist: (video) => { dispatch(addPlaylist(video)); },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(YTsearch);

@@ -6,9 +6,6 @@ class Playlist extends Component {
     return (
       <div>
         <Queue />
-        <Queue />
-        <Queue />
-        <Queue />
       </div>
     );
   }
