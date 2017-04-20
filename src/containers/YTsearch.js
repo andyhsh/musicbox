@@ -76,6 +76,9 @@ class YTsearch extends Component {
 
     // dispatch action to update playlist state with new video
     this.props.addPlaylist(video);
+    this.setState({
+      inputValue: '',
+    });
   }
 
   render() {
@@ -83,6 +86,7 @@ class YTsearch extends Component {
       <AutoComplete
         hintText="Artist name - Song name"
         floatingLabelText="Search"
+        searchText={this.state.inputValue}
         onUpdateInput={this.handleUpdateInput} // callback for update on form
         onNewRequest={this.handleNewRequest} // callback for when user selects
         dataSource={this.state.dataSource} // autocomplete list

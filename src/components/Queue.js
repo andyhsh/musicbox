@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {List, ListItem} from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import Avatar from 'material-ui/Avatar';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 class Queue extends Component {
   render() {
     return (
-      <div>
-        <img src={`${this.props.thumb}`} />
-        <p>{this.props.title}</p>
-      </div>
+      <ListItem
+        leftAvatar={<Avatar src={this.props.thumb} size={50} style={{ borderRadius: 0 }} />}
+        primaryText={this.props.title}
+        secondaryText="Anonymous"
+      />
     );
   }
 }
+
+Queue.propTypes = {
+  title: PropTypes.string.isRequired,
+  thumb: PropTypes.string.isRequired,
+};
 
 export default Queue;

@@ -9,6 +9,10 @@ class YoutubeVideo extends Component {
     // e.target.pauseVideo();
   }
 
+  static onEnd(e) {
+    console.log(e);
+  }
+
   render() {
     const opts = {
       height: '700px',
@@ -23,9 +27,10 @@ class YoutubeVideo extends Component {
 
     return (
       <Youtube
-        videoId={this.props.videoId} // "otYHF8jaLjw"
+        videoId="otYHF8jaLjw"
         opts={opts}
         onReady={YoutubeVideo.onReady}
+        onEnd={YoutubeVideo.onEnd}
       />
     );
   }

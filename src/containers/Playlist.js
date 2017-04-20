@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import {List, ListItem} from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import Avatar from 'material-ui/Avatar';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+
 import Queue from '../components/Queue';
+
 
 class Playlist extends Component {
   renderPlaylist() {
@@ -19,9 +28,9 @@ class Playlist extends Component {
 
   render() {
     return (
-      <div>
+      <List>
         {this.renderPlaylist()}
-      </div>
+      </List>
     );
   }
 }
