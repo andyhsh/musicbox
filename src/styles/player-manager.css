@@ -1,0 +1,22 @@
+.youtube-player-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+
+.youtube-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.title-overlay {
+  position: absolute;
+  top: 100px;
+  z-index: 10;
+  font-size: 60px;
+  color: blue;
+}

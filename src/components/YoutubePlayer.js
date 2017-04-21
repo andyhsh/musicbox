@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Youtube from 'react-youtube';
 
+import '../styles/player-manager.css';
+
 class YoutubePlayer extends Component {
   constructor(props) {
     super(props);
@@ -15,15 +17,15 @@ class YoutubePlayer extends Component {
     // console.log('playing video: ', this.props.videoId);
   }
 
-  onEnd(event) {
+  // Once video has finished playing, dispatch action to update playlist by removing the first obj
+  onEnd() {
     console.log('finished playing video');
     this.props.nextPlaylist();
-    // this.props.nextPlaylist(); not passing in through props...undefined
   }
 
   render() {
     const opts = {
-      height: '700px',
+      height: '100%',
       width: '100%',
       playerVars: { // https://developers.google.com/youtube/player_parameters
         autoplay: 1, // automatically play video
@@ -31,11 +33,14 @@ class YoutubePlayer extends Component {
         disablekb: 0, // allow keyboard control
         modestbranding: 1, // remove watermark/logo
         iv_load_policy: 3, // disable anotations
+        showinfo: 0, // remove default video title information
+        color: 'white',
       },
     };
     // sample videoId = "otYHF8jaLjw"
     return (
       <Youtube
+        className="youtube-player"
         videoId={this.props.videoId}
         opts={opts}
         onReady={this.onReady}

@@ -83,16 +83,19 @@ class YTsearch extends Component {
 
   render() {
     return (
-      <AutoComplete
-        hintText="Artist name - Song name"
-        floatingLabelText="Search"
-        searchText={this.state.inputValue}
-        onUpdateInput={this.handleUpdateInput} // callback for update on form
-        onNewRequest={this.handleNewRequest} // callback for when user selects
-        dataSource={this.state.dataSource} // autocomplete list
-        dataSourceConfig={this.dataSourceConfig} // structure the datasource configuration
-        filter={AutoComplete.caseInsensitiveFilter} // normalize the autocomplete filter
-      />
+      <div className="">
+        <AutoComplete
+          hintText="Artist name - Song name"
+          floatingLabelText="Search"
+          searchText={this.state.inputValue}
+          onUpdateInput={this.handleUpdateInput} // callback for update on form
+          onNewRequest={this.handleNewRequest} // callback for when user selects
+          dataSource={this.state.dataSource} // autocomplete list
+          dataSourceConfig={this.dataSourceConfig} // structure the datasource configuration
+          filter={AutoComplete.caseInsensitiveFilter} // normalize the autocomplete filter
+          fullWidth={true}
+        />
+      </div>
     );
   }
 }

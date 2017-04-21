@@ -8,10 +8,10 @@ export function addPlaylist(video) {
   };
 }
 
-export function deletePlaylist(video) {
+export function deletePlaylist(index) {
   return {
     type: DELETE_PLAYLIST,
-    payload: video,
+    payload: index,
   };
 }
 

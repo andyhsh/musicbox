@@ -7,6 +7,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Sidebar from './containers/Sidebar';
 import PlayerManager from './containers/PlayerManager';
+import TitleOverlay from './components/TitleOverlay';
 import initStore from './store/store';
 
 // get rid off default touch screen time lag for detection of double taps
@@ -26,6 +27,7 @@ class Routes extends Component {
       <Provider store={store}>
         <MuiThemeProvider muiTheme={getMuiTheme()}>
           <div className="App">
+            <TitleOverlay />
             <Sidebar />
             <PlayerManager />
           </div>

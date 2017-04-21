@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import YoutubePlayer from '../components/YoutubePlayer';
 import { nextPlaylist } from '../actions/playerlist';
 
+import '../styles/player-manager.css';
+
 class PlayerManager extends Component {
 
   renderYoutubePlayer() {
@@ -14,7 +16,7 @@ class PlayerManager extends Component {
 
   render() {
     return (
-      <div>
+      <div className="youtube-player-container">
         { this.props.playlist.length > 0 ? this.renderYoutubePlayer() : <p>Please add to playlist</p> }
       </div>
     );
