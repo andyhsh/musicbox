@@ -1,14 +1,7 @@
+const FETCH_PLAYLIST = 'FETCH_PLAYLIST';
 const ADD_PLAYLIST = 'ADD_PLAYLIST';
 const DELETE_PLAYLIST = 'DELETE_PLAYLIST';
 const NEXT_PLAYLIST = 'NEXT_PLAYLIST';
-const INITIAL_STATE = {
-  currentVideo: {
-    title: '',
-    videoId: '',
-    thumb: '',
-    user: '',
-  },
-  playList: [],
-};
+const INITIAL_STATE = [];
 
-export { ADD_PLAYLIST, DELETE_PLAYLIST, NEXT_PLAYLIST, INITIAL_STATE };
+export { FETCH_PLAYLIST, ADD_PLAYLIST, DELETE_PLAYLIST, NEXT_PLAYLIST, INITIAL_STATE };

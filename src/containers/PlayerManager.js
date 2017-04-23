@@ -3,13 +3,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import YoutubePlayer from '../components/YoutubePlayer';
-import { nextPlaylist } from '../actions/playerlist';
+import { nextPlaylist, fetchPlaylist } from '../actions/playerlist';
 
 import '../styles/player-manager.css';
 
 class PlayerManager extends Component {
 
+  componentDidMount() {
+    // this.props.fetchPlaylist();
+  }
+
   renderYoutubePlayer() {
+    console.log('rendering player');
     const currentVideoId = this.props.playlist[0].videoId;
     return <YoutubePlayer videoId={currentVideoId} nextPlaylist={this.props.nextPlaylist} />;
   }
@@ -17,26 +22,27 @@ class PlayerManager extends Component {
   render() {
     return (
       <div className="youtube-player-container">
-        { this.props.playlist.length > 0 ? this.renderYoutubePlayer() : <p>Please add to playlist</p> }
+        { this.props.playlist.length !== 0 ? this.renderYoutubePlayer() : <p>Please add to playlist</p> }
       </div>
     );
   }
 }
 
 PlayerManager.propTypes = {
-  playlist: PropTypes.array.isRequired,
+  playlist: PropTypes.array,
   nextPlaylist: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
-    playlist: state.playlist.playList,
+    playlist: state.playlist,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    nextPlaylist: () => { dispatch(nextPlaylist()); },
+    nextPlaylist: (videoId) => { dispatch(nextPlaylist(videoId)); },
+    fetchPlaylist: () => { dispatch(fetchPlaylist()); },
   };
 };
 

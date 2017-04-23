@@ -1,5 +1,6 @@
 import { createStore, compose, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk'; // handles async calls in redux
+import logger from 'redux-logger'; // useful log messages for redux state changes
 import { playlistReducer } from '../reducers/playlist';
 
 const initStore = () => {
@@ -9,7 +10,7 @@ const initStore = () => {
   });
 
   const store = createStore(rootReducer, compose(
-    applyMiddleware(thunk),
+    applyMiddleware(thunk, logger),
     window.devToolsExtension ? window.devToolsExtension() : f => f,
   ));
 

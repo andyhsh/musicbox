@@ -12,7 +12,6 @@ class Queue extends Component {
 
   // Delete target video from playlist
   handleDelete = () => {
-    console.log('delete!', this.props.videoId);
     this.props.deletePlaylist(this.props.videoId);
   }
 
@@ -22,11 +21,11 @@ class Queue extends Component {
         <CancelButton />
       </IconButton>
     );
-
+    // TODO: wrap element with new className if its the playing video, highlighting the box
     return (
       <ListItem
         leftAvatar={<Avatar src={this.props.thumb} size={50} style={{ borderRadius: 0 }} />}
-        primaryText={this.props.title}
+        primaryText={(this.props.id === 0 ? `Now playing: ${this.props.title}` : this.props.title)}
         secondaryText="Anonymous"
         rightIconButton={deleteButton}
       />
@@ -38,6 +37,7 @@ Queue.propTypes = {
   title: PropTypes.string.isRequired,
   thumb: PropTypes.string.isRequired,
   videoId: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   deletePlaylist: PropTypes.func.isRequired,
 };
 

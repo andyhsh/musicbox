@@ -20,7 +20,7 @@ class YoutubePlayer extends Component {
   // Once video has finished playing, dispatch action to update playlist by removing the first obj
   onEnd() {
     console.log('finished playing video');
-    this.props.nextPlaylist();
+    this.props.nextPlaylist(this.props.videoId);
   }
 
   render() {

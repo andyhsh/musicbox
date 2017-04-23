@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 
 import AutoComplete from 'material-ui/AutoComplete';
 import { addPlaylist } from '../actions/playerlist';
+import { YOUTUBE_CONFIG } from '../../config';
 
 
 class YTsearch extends Component {
   constructor(props) {
     super(props);
-    this.YoutubeSearch = YoutubeFinder.createClient({ key: 'AIzaSyAaWYJ1KOkozXAM6PnC5zHrIwHt42rtRQ0' });
+    this.YoutubeSearch = YoutubeFinder.createClient({ key: YOUTUBE_CONFIG });
     this.handleUpdateInput = this.handleUpdateInput.bind(this);
     this.handleNewRequest = this.handleNewRequest.bind(this);
     this.dataSourceConfig = {
