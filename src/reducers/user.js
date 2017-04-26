@@ -10,10 +10,11 @@ const userReducer = (state = userInitialState, action) => {
   switch (action.type) {
     case 'SIGN_IN_SUCCESS':
       return {
-        ...state,
-        isUserSignedIn: true,
         displayName: action.payload.displayName,
         uid: action.payload.uid,
+        isUserSignedIn: true,
+        hasError: false,
+        errorMessage: '',
       };
     case 'SIGN_IN_ERROR':
       return {

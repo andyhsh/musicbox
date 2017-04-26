@@ -1,8 +1,5 @@
-import firebase from 'firebase';
-import { FIREBASE_CONFIG } from '../../config';
+import firebase from '../firebase';
 
-// Set up firebase and initialise
-firebase.initializeApp(FIREBASE_CONFIG);
 const firebaseDB = firebase.database();
 
 /* * *
@@ -26,14 +23,13 @@ function signInSuccess(displayName) {
 export function signIn(socialMedia) {
   return dispatch => {
     let provider;
-
     if (socialMedia === 'facebook') {
       provider = new firebase.auth.FacebookAuthProvider();
     } else if (socialMedia === 'google') {
       provider = new firebase.auth.GoogleAuthProvider();
     }
 
-    firebase.auth().signInWithPopup(provider).then(result => {
+    firebase.auth().signInWithPopup(provider).then(function (result) {
       const { uid, displayName, email } = result.user;
 
       // update firebase with signed in user details

@@ -3,25 +3,32 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ChannelSearch from '../containers/ChannelSearch';
 import SignInButton from '../components/SignInButton';
+import SignOutButton from '../components/SignOutButton';
 import { signIn, signOut } from '../actions/auth';
 
 class Home extends Component {
 
-  renderSignInButton() {
+  renderSigningButton() {
     // if user is not signed in, render sign in buttons
     if (!this.props.user.isUserSignedIn) {
       return (
         <div>
           Login with:
-          <SignInButton signIn={this.props.signIn} socialMedia="google" isUserSignedIn={this.props.user.isUserSignedIn} />
-          <SignInButton signIn={this.props.signIn} socialMedia="facebook" isUserSignedIn={this.props.user.isUserSignedIn} />
+          <SignInButton
+            signIn={this.props.signIn}
+            socialMedia="google"
+          />
+          <SignInButton
+            signIn={this.props.signIn}
+            socialMedia="facebook"
+          />
         </div>
       );
     }
     // if user is signed in, render sign out buttons
     return (
       <div>
-        <SignInButton signOut={this.props.signOut} isUserSignedIn={this.props.user.isUserSignedIn} />
+        <SignOutButton signOut={this.props.signOut} />
       </div>
     );
   }
@@ -30,7 +37,7 @@ class Home extends Component {
     return (
       <div className="container">
         <ChannelSearch />
-        {this.renderSignInButton()}
+        {this.renderSigningButton()}
       </div>
     );
   }

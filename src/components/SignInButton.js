@@ -10,16 +10,13 @@ class SignInButton extends Component {
   }
 
   handleClick() {
-    if (!this.props.isUserSignedIn) {
-      this.props.signIn();
-    } else {
-      this.props.signOut();
-    }
+      console.log('sign in!');
+      this.props.signIn(this.props.socialMedia);
   }
 
   render() {
     return (
-      <a className={`btn btn-social-icon btn-${this.props.socialMedia}`}>
+      <a onClick={this.handleClick} className={`btn btn-social-icon btn-${this.props.socialMedia}`}>
         <span className={`fa fa-${this.props.socialMedia}`} />
       </a>
     );
@@ -27,10 +24,8 @@ class SignInButton extends Component {
 }
 
 SignInButton.propTypes = {
-  signIn: PropTypes.func,
-  signOut: PropTypes.func,
+  signIn: PropTypes.func.isRequired,
   socialMedia: PropTypes.string.isRequired,
-  isUserSignedIn: PropTypes.bool.isRequired,
 };
 
 export default SignInButton;

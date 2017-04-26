@@ -1,9 +1,6 @@
-import firebase from 'firebase';
-import { FIREBASE_CONFIG } from '../../config';
+import Firebase from '../firebase';
 
-// Set up firebase and initialise
-firebase.initializeApp(FIREBASE_CONFIG);
-const firebaseDB = firebase.database();
+const firebaseDB = Firebase.database();
 
 /* * *
  * ACTIONS DISPATCHED FROM OTHER ACTION CREATORS
