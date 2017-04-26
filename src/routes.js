@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import Sidebar from './containers/Sidebar';
-import PlayerManager from './containers/PlayerManager';
-import TitleOverlay from './components/TitleOverlay';
 import initStore from './store/store';
+
+import Channel from './views/Channel';
+import Home from './views/Home';
 
 // get rid off default touch screen time lag for detection of double taps
 injectTapEventPlugin();
@@ -25,13 +28,16 @@ class Routes extends Component {
   render() {
     return (
       <Provider store={store}>
-        <MuiThemeProvider muiTheme={getMuiTheme()}>
-          <div className="App">
-            <TitleOverlay />
-            <Sidebar />
-            <PlayerManager />
-          </div>
-        </MuiThemeProvider>
+        <Router>
+          <Switch>
+            <MuiThemeProvider>
+              <div>
+                <Route path="/:channel" component={Channel} />
+                <Route exact path="/" component={Home} />
+              </div>
+            </MuiThemeProvider>
+          </Switch>
+        </Router>
       </Provider>
     );
   }

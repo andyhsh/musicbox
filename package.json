@@ -12,6 +12,7 @@
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
+    "react-sidebar": "^2.3.2",
     "react-tap-event-plugin": "^2.0.1",
     "react-transition-group": "^1.1.2",
     "react-youtube": "^7.4.0",
