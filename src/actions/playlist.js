@@ -6,29 +6,29 @@ const firebaseDB = Firebase.database();
  * ACTIONS DISPATCHED FROM OTHER ACTION CREATORS
  * * */
 
-function addMessageSuccess(message) {
+function addVideoSuccess(video) {
   return {
-    type: 'ADD_MESSAGE_SUCCESS',
-    payload: message,
+    type: 'ADD_VIDEO_SUCCESS',
+    payload: video,
   };
 }
 
-function addMessageError() {
+function addVideoError() {
   return {
-    type: 'ADD_MESSAGE_ERROR',
+    type: 'ADD_VIDEO_ERROR',
   };
 }
 
-function removeMessageSuccess(id) {
+function removeVideoSuccess(id) {
   return {
-    type: 'REMOVE_MESSAGE_SUCCESS',
+    type: 'REMOVE_VIDEO_SUCCESS',
     payload: id,
   };
 }
 
-function removeMessageError() {
+function removeVideoError() {
   return {
-    type: 'REMOVE_MESSAGE_ERROR',
+    type: 'REMOVE_VIDEO_ERROR',
   };
 }
 
@@ -38,10 +38,10 @@ function resetState() {
   };
 }
 
-function sortMessageSuccess(updatedStarCountMessage) {
+function sortPlaylistSuccess(updatedStarCountVideo) {
   return {
-    type: 'SORT_MESSAGE_SUCCESS',
-    payload: updatedStarCountMessage,
+    type: 'SORT_PLAYLIST_SUCCESS',
+    payload: updatedStarCountVideo,
   };
 }
 
@@ -49,57 +49,57 @@ function sortMessageSuccess(updatedStarCountMessage) {
  * ACTIONS DISPATCHED FROM COMPONENTS DIRECTLY
  * * */
 
-export function subscribeToMessages(toggle, roomId) {
+export function subscribeToPlaylist(toggle, channelId) {
   return dispatch => {
-    const messageRef = firebaseDB.ref(`/rooms/${roomId}`);
+    const channelRef = firebaseDB.ref(`/channels/${channelId}`);
 
     if (toggle) {
-      console.log('subscribing to messages');
-      messageRef.on('child_added', snapshot => {
+      console.log('subscribing to playlist');
+      channelRef.on('child_added', snapshot => {
         // flatten firebase object for redux state
-        const message = {
+        const video = {
           id: snapshot.key,
-          text: snapshot.val().text,
+          videoId: snapshot.val().videoId,
           user: snapshot.val().user,
           stars: snapshot.val().stars,
           starCount: snapshot.val().starCount,
         }
-        dispatch(addMessageSuccess(message));
+        dispatch(addVideoSuccess(video));
       })
 
       // listen for delete in message and return the deleted message's unique ID
-      messageRef.on('child_removed', snapshot => {
-        dispatch(removeMessageSuccess(snapshot.key));
+      channelRef.on('child_removed', snapshot => {
+        dispatch(removeVideoSuccess(snapshot.key));
       })
 
       // listen for changes in starCount and return the updated starCount
-      messageRef.on('child_changed', snapshot => {
-        const updatedStarCountMessage = {
+      channelRef.on('child_changed', snapshot => {
+        const updatedStarCountVideo = {
           id: snapshot.key,
           starCount: snapshot.val().starCount
         };
-        dispatch(sortMessageSuccess(updatedStarCountMessage));
+        dispatch(sortPlaylistSuccess(updatedStarCountVideo));
       })
 
-      messageRef.once('value', snapshot => {
-        dispatch(sortMessageSuccess());
+      channelRef.once('value', snapshot => {
+        dispatch(sortPlaylistSuccess());
       })
     } else if (!toggle) {
-      console.log('unsubscribing to messages');
+      console.log('unsubscribing to playlist');
       // reset state and turn off all firebase event listeners
-      messageRef.off('child_added');
-      messageRef.off('child_removed');
-      messageRef.off('value');
+      channelRef.off('child_added');
+      channelRef.off('child_removed');
+      channelRef.off('value');
       dispatch(resetState());
     }
   };
 }
 
-export function addMessage(message, roomId, user) {
+export function addVideo(videoId, channelId, user) {
   return dispatch => {
-    const messageRef = firebaseDB.ref(`/rooms/${roomId}`);
-    messageRef.push({
-      text: message,
+    const channelRef = firebaseDB.ref(`/channels/${channelId}`);
+    channelRef.push({
+      videoId,
       user,
       // stars: { userId: null/true, userId: null/true ...}
       stars: { user: 'bool' },
@@ -107,40 +107,40 @@ export function addMessage(message, roomId, user) {
     })
     .catch(error => {
       console.log(error);
-      dispatch(addMessageError());
+      dispatch(addVideoError());
     });
   };
 }
 
-export function removeMessage(id, roomId) {
+export function removeVideo(id, channelId) {
   return dispatch => {
-    const messageRef = firebaseDB.ref(`/rooms/${roomId}`);
-    messageRef.child(id).remove()
+    const channelRef = firebaseDB.ref(`/channels/${channelId}`);
+    channelRef.child(id).remove()
     .catch(error => {
       console.log(error);
-      dispatch(removeMessageError());
+      dispatch(removeVideoError());
     });
   };
 }
 
 // Star by users. Each individual user can only star a song ONCE.
 // Keep track of total stars a song has received through message.stars
-export function starMessage(id, roomId, userId) {
+export function starVideo(id, channelId, userId) {
   return dispatch => {
-    const messageRef = firebaseDB.ref(`/rooms/${roomId}`);
-    messageRef.child(id).transaction(message => {
-      if (message) {
+    const channelRef = firebaseDB.ref(`/channels/${channelId}`);
+    channelRef.child(id).transaction(video => {
+      if (video) {
         // check whether user has starred the message already
         // If the user has starred it already, "unstar" it
-        if (message.stars[userId]) {
-          message.starCount--;
-          message.stars[userId] = null;
+        if (video.stars[userId]) {
+          video.starCount--;
+          video.stars[userId] = null;
         } else {
-          message.starCount++;
-          message.stars[userId] = true;
+          video.starCount++;
+          video.stars[userId] = true;
         }
       }
-      return message;
+      return video;
     });
   };
 }

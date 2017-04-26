@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Youtube from 'react-youtube';
 
-import '../styles/player-manager.css';
+import '../styles/channel.css';
 
 class YoutubePlayer extends Component {
   constructor(props) {

@@ -1,19 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import ChannelHeader from '../containers/ChannelHeader';
-//import Sidebar2 from '../containers/Sidebar2';
+import YoutubePlayer from '../components/YoutubePlayer';
+import { nextPlaylist, deletePlaylist } from '../actions/playlist';
+
+import '../styles/channel.css';
 
 class Channel extends Component {
-  constructor(props) {
-    super(props);
+
+  renderYoutubePlayer() {
+    const currentVideoId = this.props.playlist[0].videoId;
+    return <YoutubePlayer videoId={currentVideoId} nextPlaylist={this.props.nextPlaylist} />;
   }
 
   render() {
     return (
-      <ChannelHeader />
+      <div>
+        <ChannelHeader />
+        <div className="youtube-player-container">
+          { this.props.playlist.length !== 0 ?
+            this.renderYoutubePlayer() :
+            <p className="empty-playlist">Please add a song</p> }
+        </div>
+      </div>
     );
   }
 }
+
+Channel.propTypes = {
+  playlist: PropTypes.array.isRequired,
+  nextPlaylist: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -23,6 +42,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    nextPlaylist: (videoId) => { dispatch(nextPlaylist(videoId)); },
+    deletePlaylist: (index) => { dispatch(deletePlaylist(index)); },
   };
 };
 
