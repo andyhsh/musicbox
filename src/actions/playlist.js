@@ -102,7 +102,7 @@ export function addVideo(videoId, channelId, user) {
       videoId,
       user,
       // stars: { userId: null/true, userId: null/true ...}
-      stars: { user: 'bool' },
+      stars: { user: 'placeholder' },
       starCount: 0,
     })
     .catch(error => {

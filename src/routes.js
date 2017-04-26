@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router,
+import {
+  BrowserRouter as Router,
   Route,
   Switch,
 } from 'react-router-dom';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+// import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import initStore from './store/store';
-
 import Channel from './views/Channel';
 import Home from './views/Home';
 
 // get rid off default touch screen time lag for detection of double taps
-injectTapEventPlugin();
+// injectTapEventPlugin();
 
 // Initiate Store
 const store = initStore();

@@ -1,5 +1,6 @@
 const playlistReducer = (state = [], action) => {
   switch (action.type) {
+
     case 'ADD_VIDEO_SUCCESS':
       return [
         ...state, action.payload
@@ -7,7 +8,7 @@ const playlistReducer = (state = [], action) => {
 
     case 'REMOVE_VIDEO_SUCCESS':
       const newState = [...state];
-      // find the index message that matches the unique id object to delete
+      // find the index video that matches the unique id object to delete
       const indexToDelete = newState.findIndex(video => {
         return action.payload === video.id;
       });
@@ -18,14 +19,14 @@ const playlistReducer = (state = [], action) => {
     case 'SORT_PLAYLIST_SUCCESS':
       let sortState = [...state];
       if (action.payload) {
-        // find the index message that matches the updated unique id object
+        // find the index video that matches the updated unique id object
         const indexToUpdate = sortState.findIndex(video => {
           return action.payload.id === video.id;
         });
         // update the unique id object with the new starCount
         sortState[indexToUpdate].starCount = action.payload.starCount
       }
-      // sort the list of objects by the value of starCount
+      // sort the list of videos by the value of starCount
       sortState.sort((a, b) => {
         return b.starCount - a.starCount;
       });

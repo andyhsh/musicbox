@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class ChannelHeader extends Component {
 
@@ -7,7 +8,7 @@ class ChannelHeader extends Component {
       <header className="navbar navbar-default navbar-static-top" id="channel-header">
         <nav className="container">
           <div className="navbar-header">
-            <a className="navbar-brand"><span className="glyphicon glyphicon-menu-left" /></a>
+            <Link to="/"><span className="navbar-brand glyphicon glyphicon-menu-left" /></Link>
             <a className="navbar-brand" href="#">MusicBox</a>
           </div>
           <div className="nav">

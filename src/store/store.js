@@ -10,7 +10,7 @@ const initStore = () => {
   const rootReducer = combineReducers({
     playlist: playlistReducer,
     user: userReducer,
-    channel: channelReducer,
+    channel: channelReducer, // channel: ''
   });
 
   const store = createStore(rootReducer, compose(
