@@ -1,15 +1,15 @@
 /* * *
  * ACTIONS FOR CHANNEL REDUCER
  * * */
-export function joinRoom(roomId) {
+export function joinChannel(channelId) {
   return {
-    type: 'JOIN_ROOM',
-    payload: roomId,
+    type: 'JOIN_CHANNEL',
+    payload: channelId,
   };
 }
 
-export function exitRoom() {
+export function exitChannel() {
   return {
-    type: 'EXIT_ROOM',
+    type: 'EXIT_CHANNEL',
   };
 }

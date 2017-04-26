@@ -22,7 +22,7 @@ class Channel extends Component {
         <div className="youtube-player-container">
           { this.props.playlist.length !== 0 ?
             this.renderYoutubePlayer() :
-            <p className="empty-playlist">Please add a song</p> }
+            <p className="empty-playlist">Please add a song. This is channel {this.props.match.params.channel}.</p> }
         </div>
       </div>
     );
