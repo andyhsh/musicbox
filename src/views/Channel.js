@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
-// import IconButton from 'material-ui/IconButton';
-// import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-// import IconMenu from 'material-ui/IconMenu';
-// import MenuItem from 'material-ui/MenuItem';
+import { connect } from 'react-redux';
+import ChannelHeader from '../containers/ChannelHeader';
+//import Sidebar2 from '../containers/Sidebar2';
 
 class Channel extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     return (
-      <div>
-        Hello from Channel!
-      </div>
+      <ChannelHeader />
     );
   }
 }
 
-export default Channel;
+const mapStateToProps = (state) => {
+  return {
+    playlist: state.playlist,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Channel);

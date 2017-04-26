@@ -44,8 +44,8 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  signIn: PropTypes.func,
-  signOut: PropTypes.func,
+  signIn: PropTypes.func.isRequired,
+  signOut: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
 

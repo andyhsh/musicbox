@@ -10,7 +10,7 @@ class SignInButton extends Component {
   }
 
   handleClick() {
-      console.log('sign in!');
+      console.log('logging in via: ', this.props.socialMedia);
       this.props.signIn(this.props.socialMedia);
   }
 

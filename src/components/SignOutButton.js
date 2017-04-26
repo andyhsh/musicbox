@@ -8,7 +8,6 @@ class SignOutButton extends Component {
   }
 
   handleClick() {
-    console.log('sign out!');
     this.props.signOut();
   }
 
