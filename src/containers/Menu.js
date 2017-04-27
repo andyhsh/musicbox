@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addVideo, removeVideo } from '../actions/playlist';
+import PropTypes from 'prop-types';
+import { addVideo, removeVideo, starVideo } from '../actions/playlist';
 import YTsearch from './YTsearch';
 import Video from '../components/Video';
-
 import '../styles/menu.css';
+import '../styles/playlist.css';
 
 class Menu extends Component {
 
   renderPlaylist() {
     if (this.props.playlist.length !== 0) {
       return this.props.playlist.map((video, index) => {
-        return <Video key={index} number={index + 1} track={video.track} videoId={video.videoId} user={video.user} starCount={video.starCount} stars={video.stars} />;
+        return <Video key={index} number={index + 1} id={video.id} track={video.track} videoId={video.videoId} user={video.user} starCount={video.starCount} stars={video.stars} currentUser={this.props.user} channel={this.props.channel} starVideo={this.props.starVideo} />;
       });
     }
   }
@@ -29,6 +30,7 @@ class Menu extends Component {
                   <th>Track</th>
                   <th>User</th>
                   <th>Upvotes</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -40,6 +42,14 @@ class Menu extends Component {
       </div>
     );
   }
+}
+
+Menu.propTypes = {
+  playlist: PropTypes.array.isRequired,
+  channel: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+  addVideo: PropTypes.func.isRequired,
+  starVideo: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {
@@ -54,6 +64,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addVideo: (video, channel, user) => { dispatch(addVideo(video, channel, user)); },
     removeVideo: (id, channel) => { dispatch(removeVideo(id, channel)); },
+    starVideo: (id, channel, userId) => { dispatch(starVideo(id, channel, userId)); },
   };
 };
 

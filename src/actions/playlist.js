@@ -82,8 +82,10 @@ export function subscribeToPlaylist(toggle, channel) {
       channelRef.on('child_changed', snapshot => {
         const updatedStarCountVideo = {
           id: snapshot.key,
+          stars: snapshot.val().stars,
           starCount: snapshot.val().starCount
         };
+        debugger;
         dispatch(sortPlaylistSuccess(updatedStarCountVideo));
       })
 
@@ -127,7 +129,6 @@ export function addVideo(video, channel, user) {
 // First remove video data from firebase channel. This will invoke
 // the firebase event listener to dispatch action to update redux state afterwards.
 export function removeVideo(id, channel) {
-  debugger;
   return dispatch => {
     const channelRef = firebaseDB.ref(`/channels/${channel}`);
     channelRef.child(id).remove()

@@ -1,0 +1,17 @@
+.playlist-container table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+    color: rgba(168, 168, 168, 1);
+}
+
+th, td {
+    text-align: left;
+    font-weight: 300;
+    border-bottom: 1px solid rgba(168, 168, 168, 0.5);
+    padding: 0 1rem .75rem 1rem;
+}
+
+th, td:first-of-type {
+    color: rgba(168, 168, 168, 0.5);
+}

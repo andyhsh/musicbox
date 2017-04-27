@@ -25,6 +25,7 @@ const playlistReducer = (state = [], action) => {
         });
         // update the unique id object with the new starCount
         sortState[indexToUpdate].starCount = action.payload.starCount;
+        sortState[indexToUpdate].stars = action.payload.stars;
       }
       // sort the list of videos by the value of starCount
       sortState.sort((a, b) => {
