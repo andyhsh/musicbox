@@ -1,41 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { addPlaylist, deletePlaylist } from '../actions/playlist';
+import YTsearch from './YTsearch';
+import Playlist from './Playlist';
 
-const styles = {
-  sidebar: {
-    width: 400,
-    height: '100%',
-  },
-  sidebarLink: {
-    // display: 'block',
-    padding: '16px 0px',
-    color: '#757575',
-    textDecoration: 'none',
-  },
-  divider: {
-    margin: '8px 0',
-    height: 1,
-    backgroundColor: '#757575',
-  },
-  content: {
-    padding: '16px',
-    height: '100%',
-    backgroundColor: 'white',
-  },
-};
+import '../styles/sidebar.css';
 
 class Sidebar2 extends Component {
 
+  renderPlaylistContainer() {
+    return this.props.playlist.length !== 0 ?
+      <Playlist playlist={this.props.playlist} deletePlaylist={this.props.deletePlaylist} /> :
+      <p>Please add a song</p>;
+  }
+
   render() {
     return (
-      <div style={styles.sidebar}>
-          <div style={styles.sidebarLink}>Playlist 1</div>
-          <div style={styles.divider} />
-          <div style={styles.sidebarLink}>Playlist 2</div>
-          <div style={styles.divider} />
-          <div style={styles.sidebarLink}>Playlist 3</div>
-          <div style={styles.divider} />
+      <div className="menu">
+        <ul>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+        </ul>
+        {this.renderPlaylistContainer()}
       </div>
     );
   }

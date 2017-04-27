@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import AutoComplete from 'material-ui/AutoComplete';
-import { addPlaylist } from '../actions/playerlist';
+import { addVideo } from '../actions/playlist';
 import { YOUTUBE_CONFIG } from '../../config';
-
 
 class YTsearch extends Component {
   constructor(props) {
@@ -76,25 +75,30 @@ class YTsearch extends Component {
     };
 
     // dispatch action to update playlist state with new video
-    this.props.addPlaylist(video);
+    this.props.addVideo(video);
     this.setState({
       inputValue: '',
     });
   }
 
   render() {
+    /* onUpdateInput: callback for update on form */
+    /* onNewRequest: callback for when user selects */
+    /* dataSource: autocomplete datalist */
+    /* dataSourceConfig: structure the datasource configuration */
+    /* filter: normalize the autocomplete filter */
     return (
-      <div className="">
+      <div>
         <AutoComplete
           hintText="Artist name - Song name"
           floatingLabelText="Search"
           searchText={this.state.inputValue}
-          onUpdateInput={this.handleUpdateInput} // callback for update on form
-          onNewRequest={this.handleNewRequest} // callback for when user selects
-          dataSource={this.state.dataSource} // autocomplete list
-          dataSourceConfig={this.dataSourceConfig} // structure the datasource configuration
-          filter={AutoComplete.caseInsensitiveFilter} // normalize the autocomplete filter
-          fullWidth={true}
+          onUpdateInput={this.handleUpdateInput}
+          onNewRequest={this.handleNewRequest}
+          dataSource={this.state.dataSource}
+          dataSourceConfig={this.dataSourceConfig}
+          filter={AutoComplete.caseInsensitiveFilter}
+          fullWidth
         />
       </div>
     );
@@ -102,12 +106,12 @@ class YTsearch extends Component {
 }
 
 YTsearch.propTypes = {
-  addPlaylist: PropTypes.func.isRequired,
+  addVideo: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addPlaylist: (video) => { dispatch(addPlaylist(video)); },
+    addVideo: (video) => { dispatch(addVideo(video)); },
   };
 };
 

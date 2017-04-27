@@ -13,11 +13,10 @@ import '../styles/channel.css';
 class Channel extends Component {
   constructor(props) {
     super(props);
+    this.setMenuButton = this.setMenuButton.bind(this);
     this.state = {
-      sidebarOpen: true,
+      menuOpen: false,
     };
-    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
-    this.onSetSidebarOpenButton = this.onSetSidebarOpenButton.bind(this);
   }
 
   // Toggle on and off subscription, second parameter coming from URL route
@@ -31,14 +30,12 @@ class Channel extends Component {
     this.props.exitChannel();
   }
 
-  onSetSidebarOpen(open) {
-    this.setState({ sidebarOpen: open });
+  setMenuButton() {
+    console.log('toggle sidebar');
+    this.setState({ menuOpen: !this.state.menuOpen });
   }
 
-  onSetSidebarOpenButton() {
-    this.onSetSidebarOpen(!this.state.sidebarOpen);
-  }
-
+  // Render Youtubeplayer player after checking if any playlist added
   renderYoutubePlayer() {
     const currentVideoId = this.props.playlist[0].videoId;
     return (
@@ -50,12 +47,18 @@ class Channel extends Component {
     );
   }
 
-  render() {
-    const sidebarContent = <Sidebar2 />;
+  renderMenu() {
+    if (this.state.menuOpen) {
+      return <Sidebar2 setMenuButton={this.setMenuButton} />
+    }
+  }
 
+  render() {
     return (
       <div>
-        <ChannelHeader onSetSidebarOpenButton={this.onSetSidebarOpenButton} />
+        <ChannelHeader setMenuButton={this.setMenuButton} />
+
+        {/* Render Youtubeplayer if playlist exists */}
         <div className="youtube-player-container">
           { this.props.playlist.length !== 0 ?
             this.renderYoutubePlayer() :
@@ -63,13 +66,9 @@ class Channel extends Component {
               Please add a song. This is channel # {this.props.match.params.channel}.
             </p> }
         </div>
-        <Sidebar
-          sidebar={sidebarContent}
-          open={this.state.sidebarOpen}
-          onSetOpen={this.onSetSidebarOpen}
-          pullRight>
-          <b>Main content</b>
-        </Sidebar>
+
+        {/* Menu is rendered on toggle button */}
+        {this.renderMenu()}
       </div>
     );
   }

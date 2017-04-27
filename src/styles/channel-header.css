@@ -1,0 +1,18 @@
+#channel-header {
+  position: fixed;
+  width: 80%;
+  left: 50%;
+  top: 3%;
+  margin-left: -40%;
+  font-size: 28px;
+  z-index: 1000;
+}
+
+.exit-channel {
+  float: left;
+}
+
+.playlist-menu {
+  float: right;
+  cursor: pointer;
+}
