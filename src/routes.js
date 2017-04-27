@@ -7,14 +7,16 @@ import {
 } from 'react-router-dom';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import injectTapEventPlugin from 'react-tap-event-plugin';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import initStore from './store/store';
 import Channel from './views/Channel';
 import Home from './views/Home';
 
 // get rid off default touch screen time lag for detection of double taps
-// injectTapEventPlugin();
+injectTapEventPlugin();
 
 // Initiate Store
 const store = initStore();
@@ -30,7 +32,7 @@ class Routes extends Component {
       <Provider store={store}>
         <Router>
           <Switch>
-            <MuiThemeProvider>
+            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
               <div>
                 <Route path="/:channel" component={Channel} />
                 <Route exact path="/" component={Home} />

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Sidebar from 'react-sidebar';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import ChannelHeader from '../containers/ChannelHeader';
-import Sidebar2 from '../containers/Sidebar2';
+import Menu from '../containers/Menu';
 import YoutubePlayer from '../components/YoutubePlayer';
 import { joinChannel, exitChannel } from '../actions/channel';
 import { subscribeToPlaylist, removeVideo } from '../actions/playlist';
@@ -31,16 +31,17 @@ class Channel extends Component {
   }
 
   setMenuButton() {
-    console.log('toggle sidebar');
     this.setState({ menuOpen: !this.state.menuOpen });
   }
 
   // Render Youtubeplayer player after checking if any playlist added
   renderYoutubePlayer() {
-    const currentVideoId = this.props.playlist[0].videoId;
+    const { videoId, id } = this.props.playlist[0];
+
     return (
       <YoutubePlayer
-        videoId={currentVideoId}
+        id={id}
+        videoId={videoId}
         removeVideo={this.props.removeVideo}
         channel={this.props.match.params.channel}
       />
@@ -49,7 +50,7 @@ class Channel extends Component {
 
   renderMenu() {
     if (this.state.menuOpen) {
-      return <Sidebar2 setMenuButton={this.setMenuButton} />
+      return <Menu setMenuButton={this.setMenuButton} />
     }
   }
 
@@ -68,7 +69,12 @@ class Channel extends Component {
         </div>
 
         {/* Menu is rendered on toggle button */}
-        {this.renderMenu()}
+        <CSSTransitionGroup
+          transitionName="menu"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {this.renderMenu()}
+        </CSSTransitionGroup>
       </div>
     );
   }

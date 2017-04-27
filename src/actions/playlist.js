@@ -62,6 +62,7 @@ export function subscribeToPlaylist(toggle, channel) {
       channelRef.on('child_added', snapshot => {
         const video = {
           id: snapshot.key,
+          track: snapshot.val().track,
           videoId: snapshot.val().videoId,
           user: snapshot.val().user,
           stars: snapshot.val().stars,
@@ -104,11 +105,12 @@ export function subscribeToPlaylist(toggle, channel) {
 
 // First push new video data to firebase channel. This will invoke
 // the firebase event listener to dispatch action to update redux state afterwards.
-export function addVideo(videoId, channel, user) {
+export function addVideo(video, channel, user) {
   return dispatch => {
     const channelRef = firebaseDB.ref(`/channels/${channel}`);
     channelRef.push({
-      videoId,
+      track: video.track,
+      videoId: video.videoId,
       user,
       // stars: { userId: null/true, userId: null/true ...}
       // object key is purely used as a placeholder to access as a property of user.
@@ -125,6 +127,7 @@ export function addVideo(videoId, channel, user) {
 // First remove video data from firebase channel. This will invoke
 // the firebase event listener to dispatch action to update redux state afterwards.
 export function removeVideo(id, channel) {
+  debugger;
   return dispatch => {
     const channelRef = firebaseDB.ref(`/channels/${channel}`);
     channelRef.child(id).remove()

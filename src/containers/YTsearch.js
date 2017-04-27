@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import YoutubeFinder from 'youtube-finder';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import AutoComplete from 'material-ui/AutoComplete';
-import { addVideo } from '../actions/playlist';
 import { YOUTUBE_CONFIG } from '../../config';
 
 class YTsearch extends Component {
@@ -14,8 +12,8 @@ class YTsearch extends Component {
     this.handleUpdateInput = this.handleUpdateInput.bind(this);
     this.handleNewRequest = this.handleNewRequest.bind(this);
     this.dataSourceConfig = {
-      text: 'title',
-      value: 'props',
+      text: 'track',
+      value: 'videoId',
     };
     this.state = {
       dataSource: [],
@@ -51,11 +49,8 @@ class YTsearch extends Component {
       // set dataSource state for autocomplete suggestions
       const dataSource = data.items.map(query => {
         return {
-          title: query.snippet.title,
-          props: {
-            videoId: query.id.videoId,
-            thumb: query.snippet.thumbnails.default.url,
-          },
+          track: query.snippet.title,
+          videoId: query.id.videoId,
         };
       });
 
@@ -67,15 +62,14 @@ class YTsearch extends Component {
 
   // Add music video to playlist
   handleNewRequest(searchValue) {
+    console.log('click');
     const video = {
-      title: searchValue.title,
-      videoId: searchValue.props.videoId,
-      thumb: searchValue.props.thumb,
-      // TODO: user property to identify the person who selected the song
+      track: searchValue.track,
+      videoId: searchValue.videoId,
     };
-
+    debugger;
     // dispatch action to update playlist state with new video
-    this.props.addVideo(video);
+    this.props.addVideo(video, this.props.channel, this.props.user.displayName);
     this.setState({
       inputValue: '',
     });
@@ -90,7 +84,7 @@ class YTsearch extends Component {
     return (
       <div>
         <AutoComplete
-          hintText="Artist name - Song name"
+          hintText="Artist name - Track name"
           floatingLabelText="Search"
           searchText={this.state.inputValue}
           onUpdateInput={this.handleUpdateInput}
@@ -107,12 +101,8 @@ class YTsearch extends Component {
 
 YTsearch.propTypes = {
   addVideo: PropTypes.func.isRequired,
+  channel: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addVideo: (video) => { dispatch(addVideo(video)); },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(YTsearch);
+export default YTsearch;
