@@ -15,3 +15,12 @@ th, td {
 th, td:first-of-type {
     color: rgba(168, 168, 168, 0.5);
 }
+
+.star-video {
+  cursor: pointer;
+}
+
+.now-playing {
+  font-weight: 600;
+  color: rgb(200, 200, 200);
+}

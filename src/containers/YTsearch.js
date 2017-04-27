@@ -67,7 +67,6 @@ class YTsearch extends Component {
       track: searchValue.track,
       videoId: searchValue.videoId,
     };
-    debugger;
     // dispatch action to update playlist state with new video
     this.props.addVideo(video, this.props.channel, this.props.user.displayName);
     this.setState({

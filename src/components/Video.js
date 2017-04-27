@@ -10,14 +10,13 @@ class Video extends Component {
   renderStars() {
     const userStarred = this.props.currentUser.uid;
     if (this.props.stars.hasOwnProperty(userStarred)) {
-      return <span className="glyphicon glyphicon-star" onClick={this.handleClick} />;
+      return <span className="star-video glyphicon glyphicon-star" onClick={this.handleClick} />;
     } else if (userStarred) {
-      return <span className="glyphicon glyphicon-star-empty" onClick={this.handleClick} />;
+      return <span className="star-video glyphicon glyphicon-star-empty" onClick={this.handleClick} />;
     }
   }
 
   handleClick() {
-    debugger;
     this.props.starVideo(this.props.id, this.props.channel, this.props.currentUser.uid);
   }
 
@@ -25,9 +24,15 @@ class Video extends Component {
     return (
       <tr>
         <td>{this.props.number}</td>
-        <td>{this.props.track}</td>
+        <td>{this.props.number === 1 ?
+              <span className="now-playing">Now Playing: {this.props.track}</span> :
+              this.props.track}
+        </td>
         <td>{this.props.user}</td>
-        <td>{(this.props.starCount !== 0) ? this.props.starCount : '-'}</td>
+        <td>{this.props.starCount !== 0 ?
+              this.props.starCount :
+              '-'}
+        </td>
         <td>{this.renderStars()}</td>
       </tr>
     );

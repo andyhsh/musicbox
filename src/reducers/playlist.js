@@ -24,13 +24,17 @@ const playlistReducer = (state = [], action) => {
           return action.payload.id === video.id;
         });
         // update the unique id object with the new starCount
+        // also update the users that have starred the video for ui
         sortState[indexToUpdate].starCount = action.payload.starCount;
         sortState[indexToUpdate].stars = action.payload.stars;
       }
       // sort the list of videos by the value of starCount
+      // current playing video excluded from the sorting
+      const nowPlaying = sortState.splice(0, 1);
       sortState.sort((a, b) => {
         return b.starCount - a.starCount;
       });
+      sortState.unshift(nowPlaying[0]);
       return sortState;
 
     case 'RESET_STATE':
