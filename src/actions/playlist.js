@@ -49,14 +49,17 @@ function sortPlaylistSuccess(updatedStarCountVideo) {
  * ACTIONS DISPATCHED FROM COMPONENTS DIRECTLY
  * * */
 
-export function subscribeToPlaylist(toggle, channelId) {
+// User subscribes to playlist upon entering a channel
+// Boolean is passed through as a toggle
+export function subscribeToPlaylist(toggle, channel) {
   return dispatch => {
-    const channelRef = firebaseDB.ref(`/channels/${channelId}`);
+    const channelRef = firebaseDB.ref(`/channels/${channel}`);
 
     if (toggle) {
       console.log('subscribing to playlist');
+      // listen for any new videos queued. Flatten the properties so that the unique ID
+      // is easily referenced and immediately dispatch to update redux state
       channelRef.on('child_added', snapshot => {
-        // flatten firebase object for redux state
         const video = {
           id: snapshot.key,
           videoId: snapshot.val().videoId,
@@ -67,12 +70,14 @@ export function subscribeToPlaylist(toggle, channelId) {
         dispatch(addVideoSuccess(video));
       })
 
-      // listen for delete in message and return the deleted message's unique ID
+      // listen for delete in message and return the deleted video's unique ID
+      // dispatch action to update redux state by using the UID to match video
       channelRef.on('child_removed', snapshot => {
         dispatch(removeVideoSuccess(snapshot.key));
       })
 
       // listen for changes in starCount and return the updated starCount
+      // dispatch action with the updated video and starCount value to perform sorting
       channelRef.on('child_changed', snapshot => {
         const updatedStarCountVideo = {
           id: snapshot.key,
@@ -81,12 +86,14 @@ export function subscribeToPlaylist(toggle, channelId) {
         dispatch(sortPlaylistSuccess(updatedStarCountVideo));
       })
 
+      // On subscription, immediately sort the playlist
+      // to ensure that order of playlist is in sync with everyone else in the channel
       channelRef.once('value', snapshot => {
         dispatch(sortPlaylistSuccess());
       })
     } else if (!toggle) {
       console.log('unsubscribing to playlist');
-      // reset state and turn off all firebase event listeners
+      // reset state and turn off all firebase event listeners when user exits the channel
       channelRef.off('child_added');
       channelRef.off('child_removed');
       channelRef.off('value');
@@ -95,13 +102,16 @@ export function subscribeToPlaylist(toggle, channelId) {
   };
 }
 
-export function addVideo(videoId, channelId, user) {
+// First push new video data to firebase channel. This will invoke
+// the firebase event listener to dispatch action to update redux state afterwards.
+export function addVideo(videoId, channel, user) {
   return dispatch => {
-    const channelRef = firebaseDB.ref(`/channels/${channelId}`);
+    const channelRef = firebaseDB.ref(`/channels/${channel}`);
     channelRef.push({
       videoId,
       user,
       // stars: { userId: null/true, userId: null/true ...}
+      // object key is purely used as a placeholder to access as a property of user.
       stars: { user: 'placeholder' },
       starCount: 0,
     })
@@ -112,9 +122,11 @@ export function addVideo(videoId, channelId, user) {
   };
 }
 
-export function removeVideo(id, channelId) {
+// First remove video data from firebase channel. This will invoke
+// the firebase event listener to dispatch action to update redux state afterwards.
+export function removeVideo(id, channel) {
   return dispatch => {
-    const channelRef = firebaseDB.ref(`/channels/${channelId}`);
+    const channelRef = firebaseDB.ref(`/channels/${channel}`);
     channelRef.child(id).remove()
     .catch(error => {
       console.log(error);
@@ -124,14 +136,13 @@ export function removeVideo(id, channelId) {
 }
 
 // Star by users. Each individual user can only star a song ONCE.
-// Keep track of total stars a song has received through message.stars
-export function starVideo(id, channelId, userId) {
+// Keep track of whether a user has already starred with video.stars
+// Keep track of total stars a song has received through video.starCount
+export function starVideo(id, channel, userId) {
   return dispatch => {
-    const channelRef = firebaseDB.ref(`/channels/${channelId}`);
+    const channelRef = firebaseDB.ref(`/channels/${channel}`);
     channelRef.child(id).transaction(video => {
       if (video) {
-        // check whether user has starred the message already
-        // If the user has starred it already, "unstar" it
         if (video.stars[userId]) {
           video.starCount--;
           video.stars[userId] = null;

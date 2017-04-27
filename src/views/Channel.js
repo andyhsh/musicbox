@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
+import Sidebar from 'react-sidebar';
 import ChannelHeader from '../containers/ChannelHeader';
+import Sidebar2 from '../containers/Sidebar2';
 import YoutubePlayer from '../components/YoutubePlayer';
-import { removeVideo, subscribeToPlaylist, starVideo } from '../actions/playlist';
 import { joinChannel, exitChannel } from '../actions/channel';
+import { subscribeToPlaylist, removeVideo } from '../actions/playlist';
 
 import '../styles/channel.css';
 
 class Channel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sidebarOpen: true,
+    };
+    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
+    this.onSetSidebarOpenButton = this.onSetSidebarOpenButton.bind(this);
+  }
 
-  // Toggle on and off subscription, second parameter coming from URL 'this.props.match.params.id'
+  // Toggle on and off subscription, second parameter coming from URL route
   componentDidMount() {
     this.props.subscribeToPlaylist(true, this.props.match.params.channel);
     this.props.joinChannel(this.props.match.params.channel);
@@ -22,21 +31,31 @@ class Channel extends Component {
     this.props.exitChannel();
   }
 
+  onSetSidebarOpen(open) {
+    this.setState({ sidebarOpen: open });
+  }
+
+  onSetSidebarOpenButton() {
+    this.onSetSidebarOpen(!this.state.sidebarOpen);
+  }
+
   renderYoutubePlayer() {
     const currentVideoId = this.props.playlist[0].videoId;
     return (
       <YoutubePlayer
         videoId={currentVideoId}
         removeVideo={this.props.removeVideo}
-        channelId={this.props.match.params.channel}
+        channel={this.props.match.params.channel}
       />
     );
   }
 
   render() {
+    const sidebarContent = <Sidebar2 />;
+
     return (
       <div>
-        <ChannelHeader />
+        <ChannelHeader onSetSidebarOpenButton={this.onSetSidebarOpenButton} />
         <div className="youtube-player-container">
           { this.props.playlist.length !== 0 ?
             this.renderYoutubePlayer() :
@@ -44,6 +63,13 @@ class Channel extends Component {
               Please add a song. This is channel # {this.props.match.params.channel}.
             </p> }
         </div>
+        <Sidebar
+          sidebar={sidebarContent}
+          open={this.state.sidebarOpen}
+          onSetOpen={this.onSetSidebarOpen}
+          pullRight>
+          <b>Main content</b>
+        </Sidebar>
       </div>
     );
   }
@@ -68,10 +94,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    subscribeToPlaylist: (toggle, channelId) => { dispatch(subscribeToPlaylist(toggle, channelId)); },
-    removeVideo: (id, channelId) => { dispatch(removeVideo(id, channelId)); },
-    // starVideo: (id, channelId, userId) => { dispatch(starVideo(id, channelId, userId)); },
-    joinChannel: (channelId) => { dispatch(joinChannel(channelId)); },
+    subscribeToPlaylist: (toggle, channel) => { dispatch(subscribeToPlaylist(toggle, channel)); },
+    removeVideo: (id, channel) => { dispatch(removeVideo(id, channel)); },
+    // starVideo: (id, channel, userId) => { dispatch(starVideo(id, channel, userId)); },
+    joinChannel: (channel) => { dispatch(joinChannel(channel)); },
     exitChannel: () => { dispatch(exitChannel()); },
   };
 };

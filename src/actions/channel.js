@@ -1,10 +1,10 @@
 /* * *
  * ACTIONS FOR CHANNEL REDUCER
  * * */
-export function joinChannel(channelId) {
+export function joinChannel(channel) {
   return {
     type: 'JOIN_CHANNEL',
-    payload: channelId,
+    payload: channel,
   };
 }
 

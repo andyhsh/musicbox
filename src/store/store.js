@@ -6,11 +6,27 @@ import userReducer from '../reducers/user';
 import channelReducer from '../reducers/channel';
 
 const initStore = () => {
-  // combine all reducers to form initStore
+
   const rootReducer = combineReducers({
+    // playlist: [
+    //   {
+    //     id: '',
+    //     videoId: '',
+    //     user: '',
+    //     stars: { user: bool },
+    //     starCount: value
+    //   }, ... ],
+    // user: {
+    //   displayName: '',
+    //   uid: '',
+    //   isUserSignedIn: bool,
+    //   hasError: bool,
+    //   errorMessage: ''
+    // },
+    // channel: '',
     playlist: playlistReducer,
     user: userReducer,
-    channel: channelReducer, // channel: ''
+    channel: channelReducer,
   });
 
   const store = createStore(rootReducer, compose(

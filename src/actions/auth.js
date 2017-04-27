@@ -13,10 +13,10 @@ function signInError(errorMessage) {
   };
 }
 
-function signInSuccess(displayName) {
+function signInSuccess(user) {
   return {
     type: 'SIGN_IN_SUCCESS',
-    payload: displayName,
+    payload: user,
   };
 }
 
@@ -38,7 +38,7 @@ export function signIn(socialMedia) {
         email,
         uid,
       });
-      // update redux state
+      // pass in UID and displayName to update redux state
       dispatch(signInSuccess({ displayName, uid }));
     }).catch(error => {
       dispatch(signInError(error.message));

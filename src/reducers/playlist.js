@@ -3,7 +3,7 @@ const playlistReducer = (state = [], action) => {
 
     case 'ADD_VIDEO_SUCCESS':
       return [
-        ...state, action.payload
+        ...state, action.payload,
       ];
 
     case 'REMOVE_VIDEO_SUCCESS':
@@ -24,7 +24,7 @@ const playlistReducer = (state = [], action) => {
           return action.payload.id === video.id;
         });
         // update the unique id object with the new starCount
-        sortState[indexToUpdate].starCount = action.payload.starCount
+        sortState[indexToUpdate].starCount = action.payload.starCount;
       }
       // sort the list of videos by the value of starCount
       sortState.sort((a, b) => {

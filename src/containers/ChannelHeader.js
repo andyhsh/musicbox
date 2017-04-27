@@ -13,7 +13,7 @@ class ChannelHeader extends Component {
           </div>
           <div className="nav">
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#"><span className="glyphicon glyphicon-list" /></a></li>
+              <li><a href="#"><span className="glyphicon glyphicon-list" onClick={this.props.onSetSidebarOpenButton} /></a></li>
             </ul>
           </div>
         </nav>
