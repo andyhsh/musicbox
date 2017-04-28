@@ -25,7 +25,7 @@ export function signIn(socialMedia) {
     let provider;
     if (socialMedia === 'facebook') {
       provider = new firebase.auth.FacebookAuthProvider();
-    } else if (socialMedia === 'google') {
+    } else if (socialMedia === 'google-plus') {
       provider = new firebase.auth.GoogleAuthProvider();
     }
 

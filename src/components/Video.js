@@ -10,9 +10,9 @@ class Video extends Component {
   renderStars() {
     const userStarred = this.props.currentUser.uid;
     if (this.props.stars.hasOwnProperty(userStarred)) {
-      return <span className="star-video glyphicon glyphicon-star" onClick={this.handleClick} />;
+      return <span className="pointer fa fa-star" onClick={this.handleClick} />;
     } else if (userStarred) {
-      return <span className="star-video glyphicon glyphicon-star-empty" onClick={this.handleClick} />;
+      return <span className="pointer fa fa-star-o" onClick={this.handleClick} />;
     }
   }
 

@@ -14,7 +14,7 @@ class YoutubePlayer extends Component {
   onReady() {
     // access to player in all event handlers via event.target
     // e.target.pauseVideo();
-    // console.log('playing video: ', this.props.videoId);
+    console.log('playing video: ', this.props.videoId);
   }
 
   // Once video has finished playing, dispatch action to update playlist by removing the first obj

@@ -9,8 +9,8 @@ class ChannelHeader extends Component {
   render() {
     return (
       <header id="channel-header">
-        <Link to="/"><span className="exit-channel glyphicon glyphicon-menu-left" /></Link>
-        <span className="playlist-menu glyphicon glyphicon-list" onClick={this.props.setMenuButton} />
+        <Link to="/"><span className="exit-channel fa fa-times" /></Link>
+        <span className="pointer playlist-menu fa fa-bars" onClick={this.props.setMenuButton} />
       </header>
     );
   }

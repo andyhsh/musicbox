@@ -30,6 +30,7 @@ const playlistReducer = (state = [], action) => {
       }
       // sort the list of videos by the value of starCount
       // current playing video excluded from the sorting
+      // reattach current playing video after sorting
       const nowPlaying = sortState.splice(0, 1);
       sortState.sort((a, b) => {
         return b.starCount - a.starCount;

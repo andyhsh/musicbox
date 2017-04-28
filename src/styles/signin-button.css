@@ -1,3 +1,9 @@
+.circle {
+  display: inline-block;
+  border-radius: 50%;
+  background: rgb(231, 231, 231);
+}
+
 /*
  * Social Buttons for Bootstrap
  *

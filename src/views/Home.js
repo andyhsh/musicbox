@@ -6,17 +6,19 @@ import SignInButton from '../components/SignInButton';
 import SignOutButton from '../components/SignOutButton';
 import { signIn, signOut } from '../actions/auth';
 
+import '../styles/home.css';
+
 class Home extends Component {
 
   renderSigningButton() {
     // if user is not signed in, render sign in buttons
     if (!this.props.user.isUserSignedIn) {
       return (
-        <div>
+        <div id="login-container">
           Login with:
           <SignInButton
             signIn={this.props.signIn}
-            socialMedia="google"
+            socialMedia="google-plus"
           />
           <SignInButton
             signIn={this.props.signIn}
@@ -35,9 +37,14 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="container">
-        <ChannelSearch />
-        {this.renderSigningButton()}
+      <div className="home-container">
+        <div className="home">
+          <h1 className="title">MusicBox</h1>
+          <p>Collobarative playlist.</p>
+          <p>Join a channel to get started.</p>
+          <ChannelSearch />
+          {this.renderSigningButton()}
+        </div>
       </div>
     );
   }

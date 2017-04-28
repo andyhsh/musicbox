@@ -1,5 +1,6 @@
 .menu {
-  background: rgba(0, 0, 0, 0.85);
+  background-image: linear-gradient(300deg, rgb(48, 141, 232), rgb(56, 200, 200));
+  opacity: 0.9;
   height: 100%;
   position: fixed;
   top: 0;
@@ -15,19 +16,23 @@
 }
 
 .menu-enter {
-  background: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(300deg, rgb(48, 141, 232), rgb(56, 200, 200));
+  opacity: 0.01;
 }
 
 .menu-enter.menu-enter-active {
-  background: rgba(0, 0, 0, 0.85);
-  transition: background 500ms ease-in;
+  background-image: linear-gradient(300deg, rgb(48, 141, 232), rgb(56, 200, 200));
+  opacity: 0.9;
+  transition: all 300ms ease-in;
 }
 
 .menu-leave {
-  background: rgba(0, 0, 0, 0.85);
+  background-image: linear-gradient(300deg, rgb(48, 141, 232), rgb(56, 200, 200));
+  opacity: 0.9;
 }
 
 .menu-leave.menu-leave-active {
-  background: rgba(0, 0, 0, 0);
-  transition: background 300ms ease-in;
+  background-image: linear-gradient(300deg, rgb(48, 141, 232), rgb(56, 200, 200));
+  opacity: 0.01;
+  transition: all 200ms ease-in;
 }

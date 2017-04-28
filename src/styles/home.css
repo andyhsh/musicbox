@@ -1,0 +1,53 @@
+/* Open Sans for headers, Roboto for descriptions
+
+font-family: 'Open Sans', sans-serif;
+font-family: 'Roboto', sans-serif;
+
+*/
+
+h1.title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 4rem;
+  font-weight: lighter;
+  color: rgb(235, 235, 235);
+  margin-bottom: 3rem;
+}
+
+p {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  font-weight: lighter;
+  color: rgb(235, 235, 235);
+}
+
+/* CSS animation generated from http://www.gradient-animator.com */
+.home-container {
+  background: linear-gradient(300deg, rgb(151, 66, 208), rgb(48, 141, 232), rgb(56, 200, 200));
+  background-size: 600% 600%;
+
+  -webkit-animation: gradient 15s ease infinite;
+  -moz-animation: gradient 15s ease infinite;
+  -o-animation: gradient 15s ease infinite;
+  animation: gradient 15s ease infinite;
+}
+
+  @-webkit-keyframes gradient {
+      0%{background-position:0% 0%}
+      50%{background-position:100% 100%}
+      100%{background-position:0% 0%}
+  }
+  @-moz-keyframes gradient {
+      0%{background-position:0% 0%}
+      50%{background-position:100% 100%}
+      100%{background-position:0% 0%}
+  }
+  @-o-keyframes gradient {
+      0%{background-position:0% 0%}
+      50%{background-position:100% 100%}
+      100%{background-position:0% 0%}
+  }
+  @keyframes gradient {
+      0%{background-position:0% 0%}
+      50%{background-position:100% 100%}
+      100%{background-position:0% 0%}
+  }

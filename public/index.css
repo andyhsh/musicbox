@@ -1,0 +1,119 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Begin customised CSS Styling */
+
+body {
+  color: rgb(235, 235, 235);
+}
+
+.home-container {
+	display: flex;
+	flex-direction: column;
+
+	height: 100%;
+  align-items: center; /* controls vertical axis */
+  justify-content: center; /* controls horizontal axis */
+}
+
+.home {
+	max-width: 50%;
+}
+
+
+html, body, #root, #root > div {
+	height: 100%;
+}
+
+p {
+	padding-bottom: 0.5rem;
+}
+
+#channel-search-container {
+
+}
+
+#channel-search-input {
+	background-color: rgba(0, 0, 0, 0);
+	border: 2px solid rgba(255, 255, 255, 0.5);
+	width: 100%;
+	padding: 0.5rem 1rem;
+	margin: 2rem 0;
+	outline: none; /* removes highlight on focus */
+	color: white;
+	border-radius: 4px;
+	font-size: 1rem;
+}
+
+.channel-search-icon {
+	float: right;
+	position: relative;
+	z-index: 2;
+}
+
+#channel-search-input:focus {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+#channel-search-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: rgba(255, 255, 255, 0.5);
+}
+#channel-search-input::-moz-placeholder { /* Firefox 19+ */
+  color: rgba(255, 255, 255, 0.5);
+}
+#channel-search-input:-ms-input-placeholder { /* IE 10+ */
+  color: rgba(255, 255, 255, 0.5);
+}
+#channel-search-input:-moz-placeholder { /* Firefox 18- */
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#login-container {
+	text-align: center;
+}

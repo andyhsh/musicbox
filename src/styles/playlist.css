@@ -1,26 +1,32 @@
 .playlist-container table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 1rem;
-    color: rgba(168, 168, 168, 1);
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1rem;
+  font-family: 'Raleway', sans-serif;
+  font-weight: lighter;
 }
 
 th, td {
-    text-align: left;
-    font-weight: 300;
-    border-bottom: 1px solid rgba(168, 168, 168, 0.5);
-    padding: 0 1rem .75rem 1rem;
+  text-align: left;
+  color: rgba(240, 240, 240, 0.9);
+  border-bottom: 1px solid rgba(240, 240, 240, 0.2);
+  padding: 0 1rem .75rem 1rem;
 }
 
+/* lighten color for column descriptions and track # */
 th, td:first-of-type {
-    color: rgba(168, 168, 168, 0.5);
+  color: rgba(240, 240, 240, 0.5));
 }
 
-.star-video {
+/* center the upvote value column */
+table tr td:nth-child(4) {
+  text-align: center;
+}
+
+.pointer {
   cursor: pointer;
 }
 
 .now-playing {
-  font-weight: 600;
-  color: rgb(200, 200, 200);
+  font-weight: bold;
 }

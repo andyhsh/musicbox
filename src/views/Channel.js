@@ -71,8 +71,8 @@ class Channel extends Component {
         {/* Menu is rendered on toggle button */}
         <CSSTransitionGroup
           transitionName="menu"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}>
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={200}>
           {this.renderMenu()}
         </CSSTransitionGroup>
       </div>

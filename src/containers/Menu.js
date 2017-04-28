@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { addVideo, removeVideo, starVideo } from '../actions/playlist';
 import YTsearch from './YTsearch';
 import Video from '../components/Video';
@@ -12,7 +13,11 @@ class Menu extends Component {
   renderPlaylist() {
     if (this.props.playlist.length !== 0) {
       return this.props.playlist.map((video, index) => {
-        return <Video key={index} number={index + 1} id={video.id} track={video.track} videoId={video.videoId} user={video.user} starCount={video.starCount} stars={video.stars} currentUser={this.props.user} channel={this.props.channel} starVideo={this.props.starVideo} />;
+        return (
+
+            <Video key={index} number={index + 1} id={video.id} track={video.track} videoId={video.videoId} user={video.user} starCount={video.starCount} stars={video.stars} currentUser={this.props.user} channel={this.props.channel} starVideo={this.props.starVideo} />
+
+        );
       });
     }
   }
@@ -38,6 +43,7 @@ class Menu extends Component {
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
     );

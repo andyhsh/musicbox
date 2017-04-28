@@ -24,12 +24,15 @@ class ChannelSearch extends Component {
 
   render() {
     return (
-      <form>
-        <input type="text" name="channel" onChange={this.handleChange} />
-        <button className="btn btn-default" type="submit" onClick={this.handleClick}><Link to={`/${this.state.channel}`}>Create/Join Channel</Link></button>
-      </form>
+      <div id="channel-search-container">
+        <input id="channel-search-input" placeholder="Join a channel" type="text" onChange={this.handleChange} />
+        <span className="channel-search-icon fa fa-search" />
+      </div>
     );
   }
 }
+/*
+        <button className="btn btn-default" type="submit" onClick={this.handleClick}><Link to={`/${this.state.channel}`}>Create/Join Channel</Link></button>
+*/
 
 export default ChannelSearch;
