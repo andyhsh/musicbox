@@ -11,11 +11,12 @@ import '../styles/playlist.css';
 class Menu extends Component {
 
   renderPlaylist() {
-    if (this.props.playlist.length !== 0) {
+    if (this.props.playlist[0] !== undefined) {
       return this.props.playlist.map((video, index) => {
         return (
 
-            <Video key={index} number={index + 1} id={video.id} track={video.track} videoId={video.videoId} user={video.user} starCount={video.starCount} stars={video.stars} currentUser={this.props.user} channel={this.props.channel} starVideo={this.props.starVideo} />
+            <Video key={index} number={index + 1} id={video.id} track={video.track} videoId={video.videoId} user={video.user} starCount={video.starCount} stars={video.stars} currentUser={this.props.user} channel={this.props.channel} starVideo={this.props.starVideo}
+            removeVideo={this.props.removeVideo} />
 
         );
       });
@@ -24,7 +25,7 @@ class Menu extends Component {
 
   render() {
     return (
-      <div className="menu">
+      <div className="menu gradient-animator">
         <div className="menu-container">
           <YTsearch addVideo={this.props.addVideo} channel={this.props.channel} user={this.props.user} />
           <div className="playlist-container">
@@ -35,6 +36,7 @@ class Menu extends Component {
                   <th>Track</th>
                   <th>User</th>
                   <th>Upvotes</th>
+                  <th></th>
                   <th></th>
                 </tr>
               </thead>

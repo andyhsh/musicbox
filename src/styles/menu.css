@@ -1,5 +1,5 @@
 .menu {
-  background-image: linear-gradient(300deg, rgb(48, 141, 232), rgb(56, 200, 200));
+  background-image: linear-gradient(300deg, rgb(151, 66, 208), rgb(48, 141, 232));
   opacity: 0.9;
   height: 100%;
   position: fixed;
@@ -15,24 +15,25 @@
   margin: 0 auto;
 }
 
+/* react css transition group */
 .menu-enter {
-  background-image: linear-gradient(300deg, rgb(48, 141, 232), rgb(56, 200, 200));
+  background-image: linear-gradient(300deg, rgb(151, 66, 208), rgb(48, 141, 232));
   opacity: 0.01;
 }
 
 .menu-enter.menu-enter-active {
-  background-image: linear-gradient(300deg, rgb(48, 141, 232), rgb(56, 200, 200));
+  background-image: linear-gradient(300deg, rgb(151, 66, 208), rgb(48, 141, 232));
   opacity: 0.9;
   transition: all 300ms ease-in;
 }
 
 .menu-leave {
-  background-image: linear-gradient(300deg, rgb(48, 141, 232), rgb(56, 200, 200));
+  background-image: linear-gradient(300deg, rgb(151, 66, 208), rgb(48, 141, 232));
   opacity: 0.9;
 }
 
 .menu-leave.menu-leave-active {
-  background-image: linear-gradient(300deg, rgb(48, 141, 232), rgb(56, 200, 200));
+  background-image: linear-gradient(300deg, rgb(151, 66, 208), rgb(48, 141, 232));
   opacity: 0.01;
   transition: all 200ms ease-in;
 }

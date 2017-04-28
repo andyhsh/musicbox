@@ -54,6 +54,7 @@ YoutubePlayer.propTypes = {
   id: PropTypes.string.isRequired,
   removeVideo: PropTypes.func.isRequired,
   channel: PropTypes.string.isRequired,
+  videoId: PropTypes.string.isRequired,
 };
 
 export default YoutubePlayer;

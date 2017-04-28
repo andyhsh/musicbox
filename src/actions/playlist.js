@@ -67,15 +67,15 @@ export function subscribeToPlaylist(toggle, channel) {
           user: snapshot.val().user,
           stars: snapshot.val().stars,
           starCount: snapshot.val().starCount,
-        }
+        };
         dispatch(addVideoSuccess(video));
-      })
+      });
 
       // listen for delete in message and return the deleted video's unique ID
       // dispatch action to update redux state by using the UID to match video
       channelRef.on('child_removed', snapshot => {
         dispatch(removeVideoSuccess(snapshot.key));
-      })
+      });
 
       // listen for changes in starCount and return the updated starCount
       // dispatch action with the updated video and starCount value to perform sorting
@@ -83,17 +83,16 @@ export function subscribeToPlaylist(toggle, channel) {
         const updatedStarCountVideo = {
           id: snapshot.key,
           stars: snapshot.val().stars,
-          starCount: snapshot.val().starCount
+          starCount: snapshot.val().starCount,
         };
-        debugger;
         dispatch(sortPlaylistSuccess(updatedStarCountVideo));
-      })
+      });
 
       // On subscription, immediately sort the playlist
       // to ensure that order of playlist is in sync with everyone else in the channel
       channelRef.once('value', snapshot => {
         dispatch(sortPlaylistSuccess());
-      })
+      });
     } else if (!toggle) {
       console.log('unsubscribing to playlist');
       // reset state and turn off all firebase event listeners when user exits the channel

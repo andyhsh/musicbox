@@ -14,8 +14,10 @@ class Channel extends Component {
   constructor(props) {
     super(props);
     this.setMenuButton = this.setMenuButton.bind(this);
+    this.handleHover = this.handleHover.bind(this);
     this.state = {
       menuOpen: false,
+      renderMenuButtons: false,
     };
   }
 
@@ -23,15 +25,29 @@ class Channel extends Component {
   componentDidMount() {
     this.props.subscribeToPlaylist(true, this.props.match.params.channel);
     this.props.joinChannel(this.props.match.params.channel);
+    // const container = document.getElementById('channel-container');
+    // container.addEventListener('mousemove', this.handleHover);
   }
 
   componentWillUnmount() {
     this.props.subscribeToPlaylist(false, this.props.match.params.channel);
     this.props.exitChannel();
+    // const container = document.getElementById('channel-container');
+    // container.removeEventListener('mousemove', this.handleHover);
   }
 
   setMenuButton() {
     this.setState({ menuOpen: !this.state.menuOpen });
+  }
+
+  // set state to render ChannelHeader component.
+  // set state to unmount after 5 seconds.
+  handleHover() {
+    this.setState({
+      renderMenuButtons: true,
+    });
+    // Arrow function to bind this to Channel
+    setTimeout(() => this.setState({ renderMenuButtons: false }), 3000);
   }
 
   // Render Youtubeplayer player after checking if any playlist added
@@ -40,6 +56,7 @@ class Channel extends Component {
 
     return (
       <YoutubePlayer
+        onMouseOver={this.handleHover}
         id={id}
         videoId={videoId}
         removeVideo={this.props.removeVideo}
@@ -50,18 +67,18 @@ class Channel extends Component {
 
   renderMenu() {
     if (this.state.menuOpen) {
-      return <Menu setMenuButton={this.setMenuButton} />
+      return <Menu setMenuButton={this.setMenuButton} />;
     }
   }
 
   render() {
     return (
-      <div>
+      <div id="channel-container">
         <ChannelHeader setMenuButton={this.setMenuButton} />
 
         {/* Render Youtubeplayer if playlist exists */}
         <div className="youtube-player-container">
-          { this.props.playlist.length !== 0 ?
+          { this.props.playlist[0] !== undefined ?
             this.renderYoutubePlayer() :
             <p className="empty-playlist">
               Please add a song. This is channel # {this.props.match.params.channel}.

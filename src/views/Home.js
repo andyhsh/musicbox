@@ -37,7 +37,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="home-container">
+      <div className="home-container gradient-animator">
         <div className="home">
           <h1 className="title">MusicBox</h1>
           <p>Collobarative playlist.</p>

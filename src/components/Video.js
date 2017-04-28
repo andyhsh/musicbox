@@ -4,20 +4,32 @@ import PropTypes from 'prop-types';
 class Video extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleStar = this.handleStar.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   renderStars() {
     const userStarred = this.props.currentUser.uid;
     if (this.props.stars.hasOwnProperty(userStarred)) {
-      return <span className="pointer fa fa-star" onClick={this.handleClick} />;
+      return <span className="pointer fa fa-star" onClick={this.handleStar} />;
     } else if (userStarred) {
-      return <span className="pointer fa fa-star-o" onClick={this.handleClick} />;
+      return <span className="pointer fa fa-star-o" onClick={this.handleStar} />;
     }
   }
 
-  handleClick() {
+  renderDelete() {
+    const userLoggedIn = this.props.currentUser.uid;
+    if (userLoggedIn) {
+      return <span className="pointer fa fa-trash-o" onClick={this.handleDelete} />
+    }
+  }
+
+  handleStar() {
     this.props.starVideo(this.props.id, this.props.channel, this.props.currentUser.uid);
+  }
+
+  handleDelete() {
+    this.props.removeVideo(this.props.id, this.props.channel);
   }
 
   render() {
@@ -34,6 +46,7 @@ class Video extends Component {
               '-'}
         </td>
         <td>{this.renderStars()}</td>
+        <td>{this.renderDelete()}</td>
       </tr>
     );
   }
