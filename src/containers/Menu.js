@@ -15,7 +15,7 @@ class Menu extends Component {
       return this.props.playlist.map((video, index) => {
         return (
 
-            <Video key={index} number={index + 1} id={video.id} track={video.track} videoId={video.videoId} user={video.user} starCount={video.starCount} stars={video.stars} currentUser={this.props.user} channel={this.props.channel} starVideo={this.props.starVideo}
+            <Video key={index} number={index + 1} id={video.id} track={video.track} videoId={video.videoId} duration={video.duration} user={video.user} starCount={video.starCount} stars={video.stars} currentUser={this.props.user} channel={this.props.channel} starVideo={this.props.starVideo}
             removeVideo={this.props.removeVideo} />
 
         );
@@ -35,6 +35,7 @@ class Menu extends Component {
                   <th>#</th>
                   <th>Track</th>
                   <th>User</th>
+                  <th><span className="fa fa-clock-o" /></th>
                   <th>Upvotes</th>
                   <th></th>
                   <th></th>

@@ -3,7 +3,7 @@ import YoutubeFinder from 'youtube-finder';
 import PropTypes from 'prop-types';
 
 import AutoComplete from 'material-ui/AutoComplete';
-import { YOUTUBE_CONFIG } from '../../config';
+import { YOUTUBE_CONFIG } from '../config';
 
 class YTsearch extends Component {
   constructor(props) {
@@ -45,7 +45,6 @@ class YTsearch extends Component {
     // call Youtube API to search for videos, passing in the current input as arguments
     this.YoutubeSearch.search(params, (err, data) => {
       if (err) return console.log(err);
-
       // set dataSource state for autocomplete suggestions
       const dataSource = data.items.map(query => {
         return {

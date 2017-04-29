@@ -17,6 +17,7 @@ class Video extends Component {
     }
   }
 
+  // TODO: TO CHECK IF USER IS MASTER FIRST. SLAVE UNITS SHOULD NOT BE GIVEN DELETE FUNCTION.
   renderDelete() {
     const userLoggedIn = this.props.currentUser.uid;
     if (userLoggedIn) {
@@ -41,6 +42,7 @@ class Video extends Component {
               this.props.track}
         </td>
         <td>{this.props.user}</td>
+        <td>{this.props.duration}</td>
         <td>{this.props.starCount !== 0 ?
               this.props.starCount :
               '-'}

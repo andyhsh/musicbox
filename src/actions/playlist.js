@@ -1,7 +1,8 @@
 import Firebase from '../firebase';
+import { YOUTUBE_CONFIG } from '../config';
 
 const firebaseDB = Firebase.database();
-
+const youtubeApiKey = YOUTUBE_CONFIG;
 /* * *
  * ACTIONS DISPATCHED FROM OTHER ACTION CREATORS
  * * */
@@ -64,6 +65,7 @@ export function subscribeToPlaylist(toggle, channel) {
           id: snapshot.key,
           track: snapshot.val().track,
           videoId: snapshot.val().videoId,
+          duration: snapshot.val().duration,
           user: snapshot.val().user,
           stars: snapshot.val().stars,
           starCount: snapshot.val().starCount,
@@ -108,20 +110,44 @@ export function subscribeToPlaylist(toggle, channel) {
 // the firebase event listener to dispatch action to update redux state afterwards.
 export function addVideo(video, channel, user) {
   return dispatch => {
+    debugger;
+    const moreVideoData = `https://www.googleapis.com/youtube/v3/videos?id=${video.videoId}&part=contentDetails&key=${youtubeApiKey}`;
+    let trackDuration;
     const channelRef = firebaseDB.ref(`/channels/${channel}`);
-    channelRef.push({
-      track: video.track,
-      videoId: video.videoId,
-      user,
-      // stars: { userId: null/true, userId: null/true ...}
-      // object key is purely used as a placeholder to access as a property of user.
-      stars: { user: 'placeholder' },
-      starCount: 0,
-    })
-    .catch(error => {
-      console.log(error);
-      dispatch(addVideoError());
-    });
+
+    // Make another api call for track duration information
+    fetch(moreVideoData)
+      .then(response => response.json())
+      .then(data => {
+        // Track duration format "PT8M2S". Split minutes and seconds components
+        // and check whether seconds is less than 10, if so add 0 in front for formatting
+        trackDuration = data.items[0].contentDetails.duration;
+        const parts = trackDuration.slice(0, -1).split('M');
+        const minutesComponent = parts[0].replace('PT', '');
+        let secondsComponent = parts[1];
+        if (secondsComponent.length === 1) {
+          secondsComponent = '0'.concat(secondsComponent);
+        }
+        trackDuration = minutesComponent.concat(':').concat(secondsComponent);
+      })
+
+    // fetch API call to youtube for further information
+      .then(() => {
+      channelRef.push({
+        track: video.track,
+        videoId: video.videoId,
+        duration: trackDuration,
+        user,
+        // stars: { userId: null/true, userId: null/true ...}
+        // object key is purely used as a placeholder to access as a property of user.
+        stars: { user: 'placeholder' },
+        starCount: 0,
+      });
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(addVideoError());
+      });
   };
 }
 
