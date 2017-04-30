@@ -13,7 +13,9 @@ class SignOutButton extends Component {
 
   render() {
     return (
-      <button onClick={this.handleClick}>Log out</button>
+      <div className="signout-button pointer" onClick={this.handleClick}>
+        <span className="fa fa-sign-out" />Logout
+      </div>
     );
   }
 }

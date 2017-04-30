@@ -35,7 +35,7 @@ class Home extends Component {
     }
     // if user is signed in, render sign out buttons
     return (
-      <div>
+      <div className="signout-container">
         <SignOutButton signOut={this.props.signOut} />
       </div>
     );

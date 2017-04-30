@@ -13,3 +13,20 @@
 .social-icon:hover {
   background-color: rgba(240, 240, 240, 0.6);
 }
+
+.signout-container {
+  text-align: center;
+}
+
+.signout-button {
+  display: inline-block;
+  background-color: rgba(240, 240, 240, 0.3);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 400ms ease-in-out;
+}
+
+.signout-button:hover {
+  background-color: rgba(240, 240, 240, 0.6);
+}
