@@ -9,9 +9,28 @@
 }
 
 .exit-channel {
-  float: left;
+  float: right;
 }
 
 .playlist-menu {
-  float: right;
+  float: left;
+}
+
+/* react css transition group */
+.channel-header-enter {
+  opacity: 0.01;
+}
+
+.channel-header-enter.channel-header-enter-active {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
+.channel-header-leave {
+  opacity: 1;
+}
+
+.channel-header-leave.channel-header-leave-active {
+  opacity: 0.01;
+  transition: opacity 200ms ease-in;
 }

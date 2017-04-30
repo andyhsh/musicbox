@@ -14,7 +14,10 @@ class Channel extends Component {
   constructor(props) {
     super(props);
     this.setMenuButton = this.setMenuButton.bind(this);
-    this.handleHover = this.handleHover.bind(this);
+    this.resetTimer = this.resetTimer.bind(this);
+    this.goActive = this.goActive.bind(this);
+    this.goInactive = this.goInactive.bind(this);
+    this.timeoutId = window.setTimeout(this.goInactive, 1000);
     this.state = {
       menuOpen: false,
       renderMenuButtons: false,
@@ -25,29 +28,20 @@ class Channel extends Component {
   componentDidMount() {
     this.props.subscribeToPlaylist(true, this.props.match.params.channel);
     this.props.joinChannel(this.props.match.params.channel);
-    // const container = document.getElementById('channel-container');
-    // container.addEventListener('mousemove', this.handleHover);
+    const container = document.getElementById('channel-container');
+    container.addEventListener('mousemove', this.resetTimer);
+    this.startTimer();
   }
 
   componentWillUnmount() {
     this.props.subscribeToPlaylist(false, this.props.match.params.channel);
     this.props.exitChannel();
-    // const container = document.getElementById('channel-container');
-    // container.removeEventListener('mousemove', this.handleHover);
+    const container = document.getElementById('channel-container');
+    container.removeEventListener('mousemove', this.resetTimer);
   }
 
   setMenuButton() {
     this.setState({ menuOpen: !this.state.menuOpen });
-  }
-
-  // set state to render ChannelHeader component.
-  // set state to unmount after 5 seconds.
-  handleHover() {
-    this.setState({
-      renderMenuButtons: true,
-    });
-    // Arrow function to bind this to Channel
-    setTimeout(() => this.setState({ renderMenuButtons: false }), 3000);
   }
 
   // Render Youtubeplayer player after checking if any playlist added
@@ -71,11 +65,42 @@ class Channel extends Component {
     }
   }
 
+  startTimer() {
+    // call goInactive after no movement
+    this.timeoutId = window.setTimeout(this.goInactive, 1000);
+  }
+
+  resetTimer() {
+    window.clearTimeout(this.timeoutId);
+    this.goActive();
+  }
+
+  goActive() {
+    console.log('set state to true');
+    this.setState({ renderMenuButtons: true });
+    this.startTimer();
+  }
+
+  goInactive() {
+    console.log('set state to false');
+    this.setState({ renderMenuButtons: false });
+  }
+
+  renderChannelHeader() {
+    if (this.state.renderMenuButtons) {
+      return <ChannelHeader setMenuButton={this.setMenuButton} />;
+    }
+  }
+
   render() {
     return (
       <div id="channel-container">
-        <ChannelHeader setMenuButton={this.setMenuButton} />
-
+        <CSSTransitionGroup
+          transitionName="channel-header"
+          transitionEnterTimeout={200}
+          transitionLeaveTimeout={200}>
+        {this.renderChannelHeader()}
+        </CSSTransitionGroup>
         {/* Render Youtubeplayer if playlist exists */}
         <div className="youtube-player-container">
           { this.props.playlist[0] !== undefined ?

@@ -34,9 +34,9 @@ class Menu extends Component {
                 <tr>
                   <th>#</th>
                   <th>Track</th>
-                  <th>User</th>
+                  <th><span className="fa fa-user-o" /></th>
                   <th><span className="fa fa-clock-o" /></th>
-                  <th>Upvotes</th>
+                  <th><span className="fa fa-signal" /></th>
                   <th></th>
                   <th></th>
                 </tr>
