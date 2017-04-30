@@ -55,7 +55,7 @@ body {
 
 .home-container {
 	display: flex;
-	flex-direction: column;
+	/* flex-direction: column; */
 
 	height: 100%;
   align-items: center; /* controls vertical axis */
@@ -63,7 +63,14 @@ body {
 }
 
 .home {
-	max-width: 50%;
+	min-width: 25%;
+}
+
+.home-footer {
+	position: absolute;
+	bottom: 0;
+	padding-bottom: 30px;
+	font-size: 0.7rem;
 }
 
 
@@ -82,12 +89,12 @@ p {
 #channel-search-input {
 	background-color: rgba(0, 0, 0, 0);
 	border: 2px solid rgba(255, 255, 255, 0.5);
-	width: 100%;
+	width: 90%;
 	padding: 0.5rem 1rem;
 	margin: 2rem 0;
 	outline: none; /* removes highlight on focus */
 	color: white;
-	border-radius: 4px;
+	border-radius: 5px;
 	font-size: 1rem;
 }
 

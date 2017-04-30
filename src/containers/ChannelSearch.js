@@ -33,7 +33,7 @@ class ChannelSearch extends Component {
     return (
       <div id="channel-search-container">
         <form onSubmit={this.handleSubmit}>
-          <input id="channel-search-input" placeholder="Join a channel" type="text" onChange={this.handleChange} />
+          <input id="channel-search-input" placeholder="Search / Join a box" type="text" onChange={this.handleChange} />
         </form>
         {this.handleRedirect()}
       </div>

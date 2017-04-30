@@ -28,16 +28,16 @@ class Channel extends Component {
   componentDidMount() {
     this.props.subscribeToPlaylist(true, this.props.match.params.channel);
     this.props.joinChannel(this.props.match.params.channel);
-    const container = document.getElementById('channel-container');
-    container.addEventListener('mousemove', this.resetTimer);
+    // const container = document.getElementById('channel-container');
+    window.addEventListener('mousemove', this.resetTimer);
     this.startTimer();
   }
 
   componentWillUnmount() {
     this.props.subscribeToPlaylist(false, this.props.match.params.channel);
     this.props.exitChannel();
-    const container = document.getElementById('channel-container');
-    container.removeEventListener('mousemove', this.resetTimer);
+    // const container = document.getElementById('channel-container');
+    window.removeEventListener('mousemove', this.resetTimer);
   }
 
   setMenuButton() {

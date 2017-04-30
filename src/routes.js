@@ -34,7 +34,7 @@ class Routes extends Component {
           <Switch>
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
               <div>
-                <Route path="/:channel" component={Channel} />
+                <Route location={location} path="/:channel" component={Channel} />
                 <Route exact path="/" component={Home} />
               </div>
             </MuiThemeProvider>

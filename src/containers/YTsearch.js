@@ -54,10 +54,12 @@ class YTsearch extends Component {
         };
       });
       // Grab related videos of the top matching result from youtube search
-      const relatedVideos = `https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${data.items[0].id.videoId}&type=video&key=${YOUTUBE_CONFIG}`;
+      const topResult = data.items[0].id.videoId;
+      const relatedVideos = `https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${topResult}&type=video&key=${YOUTUBE_CONFIG}`;
       fetch(relatedVideos)
         .then(response => response.json())
         .then(parsedResponse => {
+          // Set related Video as the top related video from list
           const relatedVideo = {
             track: `Related: ${parsedResponse.items[0].snippet.title}`,
             videoId: parsedResponse.items[0].id.videoId,
@@ -74,7 +76,6 @@ class YTsearch extends Component {
 
   // Add music video to playlist
   handleNewRequest(searchValue) {
-    debugger;
     let trackName = searchValue.track;
 
     if (trackName.includes('Related: ')) {

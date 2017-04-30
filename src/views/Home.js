@@ -15,7 +15,8 @@ class Home extends Component {
     if (!this.props.user.isUserSignedIn) {
       return (
         <div id="login-container">
-          Login with:
+          <p>Login with:</p>
+          <p>
           <SignInButton
             signIn={this.props.signIn}
             socialMedia="google-plus"
@@ -24,6 +25,11 @@ class Home extends Component {
             signIn={this.props.signIn}
             socialMedia="facebook"
           />
+          <SignInButton
+            signIn={this.props.signIn}
+            socialMedia="twitter"
+          />
+          </p>
         </div>
       );
     }
@@ -41,9 +47,12 @@ class Home extends Component {
         <div className="home">
           <h1 className="title">MusicBox</h1>
           <p>Collobarative playlist.</p>
-          <p>Join a channel to get started.</p>
+          <p>Join a box to get started.</p>
           <ChannelSearch />
           {this.renderSigningButton()}
+        </div>
+        <div className="home-footer">
+          Created by Andy Ho for General Assembly
         </div>
       </div>
     );
