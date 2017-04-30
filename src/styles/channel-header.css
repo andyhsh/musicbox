@@ -10,10 +10,12 @@
 
 .exit-channel {
   float: right;
+  color: rgba(240, 240, 240, 0.7);
 }
 
 .playlist-menu {
   float: left;
+  color: rgba(240, 240, 240, 0.7);
 }
 
 /* react css transition group */

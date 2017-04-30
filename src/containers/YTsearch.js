@@ -39,31 +39,50 @@ class YTsearch extends Component {
       part: 'snippet, id',
       type: 'video',
       q: inputValue,
-      maxResults: 10,
+      maxResults: 9,
     };
 
     // call Youtube API to search for videos, passing in the current input as arguments
     this.YoutubeSearch.search(params, (err, data) => {
       if (err) return console.log(err);
+
       // set dataSource state for autocomplete suggestions
-      const dataSource = data.items.map(query => {
+      let dataSource = data.items.map(query => {
         return {
           track: query.snippet.title,
           videoId: query.id.videoId,
         };
       });
-
-      return this.setState({
-        dataSource,
-      });
+      // Grab related videos of the top matching result from youtube search
+      const relatedVideos = `https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${data.items[0].id.videoId}&type=video&key=${YOUTUBE_CONFIG}`;
+      fetch(relatedVideos)
+        .then(response => response.json())
+        .then(parsedResponse => {
+          const relatedVideo = {
+            track: `Related: ${parsedResponse.items[0].snippet.title}`,
+            videoId: parsedResponse.items[0].id.videoId,
+          };
+          dataSource.push(relatedVideo);
+        })
+        .then(response => {
+          return this.setState({
+            dataSource,
+          });
+        });
     });
   }
 
   // Add music video to playlist
   handleNewRequest(searchValue) {
-    console.log('click');
+    debugger;
+    let trackName = searchValue.track;
+
+    if (trackName.includes('Related: ')) {
+      trackName = trackName.replace('Related: ', '');
+    }
+
     const video = {
-      track: searchValue.track,
+      track: trackName,
       videoId: searchValue.videoId,
     };
     // dispatch action to update playlist state with new video
