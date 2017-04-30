@@ -94,14 +94,9 @@ p {
 	margin: 2rem 0;
 	outline: none; /* removes highlight on focus */
 	color: white;
-	border-radius: 5px;
+	border-radius: 50px;
 	font-size: 1rem;
-}
-
-.channel-search-icon {
-	float: right;
-	position: relative;
-	z-index: 2;
+	transition: all 300ms ease-in-out;
 }
 
 #channel-search-input:focus {

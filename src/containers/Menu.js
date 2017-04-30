@@ -24,6 +24,8 @@ class Menu extends Component {
   }
 
   render() {
+    const userLoggedIn = this.props.user.uid;
+
     return (
       <div className="menu gradient-animator">
         <div className="menu-container">
@@ -37,8 +39,9 @@ class Menu extends Component {
                   <th><span className="fa fa-user-o" /></th>
                   <th><span className="fa fa-clock-o" /></th>
                   <th><span className="fa fa-signal" /></th>
-                  <th></th>
-                  <th></th>
+                  {/* If user is logged in, generate columns for stars and delete */}
+                  { userLoggedIn && <th /> }
+                  { userLoggedIn && <th /> }
                 </tr>
               </thead>
               <tbody>

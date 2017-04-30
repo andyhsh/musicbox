@@ -26,7 +26,7 @@
 
 .channel-header-enter.channel-header-enter-active {
   opacity: 1;
-  transition: opacity 200ms ease-in;
+  transition: opacity 300ms ease-in;
 }
 
 .channel-header-leave {

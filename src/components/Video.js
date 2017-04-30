@@ -18,12 +18,12 @@ class Video extends Component {
   }
 
   // TODO: TO CHECK IF USER IS MASTER FIRST. SLAVE UNITS SHOULD NOT BE GIVEN DELETE FUNCTION.
-  renderDelete() {
-    const userLoggedIn = this.props.currentUser.uid;
-    if (userLoggedIn) {
-      return <span className="pointer fa fa-trash-o" onClick={this.handleDelete} />
-    }
-  }
+  // renderDelete() {
+  //   const userLoggedIn = this.props.currentUser.uid;
+  //   if (userLoggedIn) {
+  //     return <span className="pointer fa fa-trash-o" onClick={this.handleDelete} />
+  //   }
+  // }
 
   handleStar() {
     this.props.starVideo(this.props.id, this.props.channel, this.props.currentUser.uid);
@@ -34,6 +34,8 @@ class Video extends Component {
   }
 
   render() {
+    const userLoggedIn = this.props.currentUser.uid;
+
     return (
       <tr>
         <td>{this.props.number}</td>
@@ -48,7 +50,7 @@ class Video extends Component {
               '-'}
         </td>
         <td>{this.renderStars()}</td>
-        <td>{this.renderDelete()}</td>
+        { userLoggedIn && <td><span className="pointer fa fa-trash-o" onClick={this.handleDelete} /></td> }
       </tr>
     );
   }
