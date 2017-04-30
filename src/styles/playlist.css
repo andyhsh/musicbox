@@ -27,6 +27,14 @@ table tr td:nth-child(5) {
   cursor: pointer;
 }
 
+.star-icon:hover:before {
+  content: "\f005";
+}
+
+.trash-icon:hover:before {
+  content: "\f1f8";
+}
+
 .now-playing {
   font-weight: bold;
 }

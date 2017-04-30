@@ -11,19 +11,11 @@ class Video extends Component {
   renderStars() {
     const userStarred = this.props.currentUser.uid;
     if (this.props.stars.hasOwnProperty(userStarred)) {
-      return <span className="pointer fa fa-star" onClick={this.handleStar} />;
+      return <td><span className="star-icon pointer fa fa-star" onClick={this.handleStar} /></td>;
     } else if (userStarred) {
-      return <span className="pointer fa fa-star-o" onClick={this.handleStar} />;
+      return <td><span className="star-icon pointer fa fa-star-o" onClick={this.handleStar} /></td>;
     }
   }
-
-  // TODO: TO CHECK IF USER IS MASTER FIRST. SLAVE UNITS SHOULD NOT BE GIVEN DELETE FUNCTION.
-  // renderDelete() {
-  //   const userLoggedIn = this.props.currentUser.uid;
-  //   if (userLoggedIn) {
-  //     return <span className="pointer fa fa-trash-o" onClick={this.handleDelete} />
-  //   }
-  // }
 
   handleStar() {
     this.props.starVideo(this.props.id, this.props.channel, this.props.currentUser.uid);
@@ -39,18 +31,16 @@ class Video extends Component {
     return (
       <tr>
         <td>{this.props.number}</td>
-        <td>{this.props.number === 1 ?
-              <span className="now-playing">Now Playing: {this.props.track}</span> :
-              this.props.track}
-        </td>
+        <td>{this.props.track}</td>
         <td>{this.props.user}</td>
         <td>{this.props.duration}</td>
-        <td>{this.props.starCount !== 0 ?
-              this.props.starCount :
-              '-'}
+        <td>
+          {this.props.starCount !== 0 ?
+          this.props.starCount :
+          '-'}
         </td>
-        <td>{this.renderStars()}</td>
-        { userLoggedIn && <td><span className="pointer fa fa-trash-o" onClick={this.handleDelete} /></td> }
+        {this.renderStars()}
+        { userLoggedIn && <td><span className="trash-icon pointer fa fa-trash-o" onClick={this.handleDelete} /></td> }
       </tr>
     );
   }
@@ -60,6 +50,7 @@ Video.propTypes = {
   number: PropTypes.number.isRequired,
   track: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
+  duration: PropTypes.string.isRequired,
   starCount: PropTypes.number.isRequired,
   stars: PropTypes.object.isRequired,
 };
