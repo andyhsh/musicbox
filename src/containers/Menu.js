@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import MediaQuery from 'react-responsive';
 import { addVideo, removeVideo, starVideo } from '../actions/playlist';
 import YTsearch from './YTsearch';
 import Video from '../components/Video';
@@ -36,12 +36,20 @@ class Menu extends Component {
                 <tr>
                   <th>#</th>
                   <th>Track</th>
-                  <th><span className="fa fa-user-o" /></th>
+                  {/* most mobile devices in landscape mode to see user visible */}
+                  <MediaQuery minDeviceWidth={415}>
+                    <th><span className="fa fa-user-o" /></th>
+                  </MediaQuery>
+
                   <th><span className="fa fa-clock-o" /></th>
                   <th><span className="fa fa-signal" /></th>
                   {/* If user is logged in, generate columns for stars and delete */}
                   { userLoggedIn && <th /> }
-                  { userLoggedIn && <th /> }
+
+                  {/* Device must be iPad or above (master) to have delete fuctionality */}
+                  <MediaQuery minDeviceWidth={768}>
+                    { userLoggedIn && <th /> }
+                  </MediaQuery>
                 </tr>
               </thead>
               <tbody>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import MediaQuery from 'react-responsive';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import ChannelHeader from '../containers/ChannelHeader';
 import Menu from '../containers/Menu';
@@ -99,15 +100,20 @@ class Channel extends Component {
           transitionLeaveTimeout={200}>
         {this.renderChannelHeader()}
         </CSSTransitionGroup>
-        {/* Render Youtubeplayer if playlist exists */}
-        <div className="youtube-player-container">
-          { this.props.playlist[0] !== undefined ?
-            this.renderYoutubePlayer() :
-            <p className="empty-playlist">
-              Please add a song. This is channel # {this.props.match.params.channel}.
-            </p> }
-        </div>
-
+        {/* Render Menu as default if device is smaller than an iPad */}
+        <MediaQuery maxDeviceWidth={767}>
+          <Menu setMenuButton={this.setMenuButton} />
+        </MediaQuery>
+        {/* Render Youtubeplayer if playlist exists and media is iPad or bigger */}
+        <MediaQuery minDeviceWidth={768}>
+          <div className="youtube-player-container">
+            { this.props.playlist[0] !== undefined ?
+              this.renderYoutubePlayer() :
+              <p className="empty-playlist">
+                Please add a song. This is channel # {this.props.match.params.channel}.
+              </p> }
+          </div>
+        </MediaQuery>
         {/* Menu is rendered on toggle button */}
         <CSSTransitionGroup
           transitionName="menu"

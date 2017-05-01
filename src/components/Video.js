@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import MediaQuery from 'react-responsive';
 
 class Video extends Component {
   constructor(props) {
@@ -32,7 +33,12 @@ class Video extends Component {
       <tr>
         <td>{this.props.number}</td>
         <td>{this.props.track}</td>
-        <td>{this.props.user}</td>
+
+        {/* most mobile devices in landscape mode to see user visible */}
+        <MediaQuery minDeviceWidth={415}>
+          <td>{this.props.user}</td>
+        </MediaQuery>
+
         <td>{this.props.duration}</td>
         <td>
           {this.props.starCount !== 0 ?
@@ -40,7 +46,12 @@ class Video extends Component {
           '-'}
         </td>
         {this.renderStars()}
-        { userLoggedIn && <td><span className="trash-icon pointer fa fa-trash-o" onClick={this.handleDelete} /></td> }
+
+        {/* Device must be iPad or above (master) to have delete fuctionality */}
+        <MediaQuery minDeviceWidth={768}>
+          { userLoggedIn &&
+            <td><span className="trash-icon pointer fa fa-trash-o" onClick={this.handleDelete} /></td> }
+        </MediaQuery>
       </tr>
     );
   }
