@@ -16,7 +16,7 @@ class SignInButton extends Component {
 
   render() {
     return (
-        <span onClick={this.handleClick} className={`social-icon pointer fa fa-${this.props.socialMedia}`} />
+      <span onClick={this.handleClick} className={`social-icon pointer fa fa-${this.props.socialMedia}`} />
     );
   }
 }

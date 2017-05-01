@@ -18,7 +18,7 @@ class Channel extends Component {
     this.resetTimer = this.resetTimer.bind(this);
     this.goActive = this.goActive.bind(this);
     this.goInactive = this.goInactive.bind(this);
-    this.timeoutId = window.setTimeout(this.goInactive, 2000);
+    this.timeoutId = null;
     this.state = {
       menuOpen: false,
       renderMenuButtons: false,
@@ -68,7 +68,7 @@ class Channel extends Component {
 
   startTimer() {
     // call goInactive after no movement
-    this.timeoutId = window.setTimeout(this.goInactive, 2000);
+    this.timeoutId = window.setTimeout(this.goInactive, 3000);
   }
 
   resetTimer() {

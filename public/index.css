@@ -73,6 +73,13 @@ body {
 	font-size: 0.7rem;
 }
 
+/* error message styling */
+.flash {
+	font-size: 0.7rem;
+	color: rgb(255, 0, 0);
+	transition: all 100ms ease-in;
+}
+
 
 html, body, #root, #root > div {
 	height: 100%;

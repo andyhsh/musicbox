@@ -14,6 +14,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import initStore from './store/store';
 import Channel from './views/Channel';
 import Home from './views/Home';
+import { initAuth } from './actions/auth';
 
 // get rid off default touch screen time lag for detection of double taps
 injectTapEventPlugin();
@@ -25,6 +26,9 @@ const store = initStore();
 store.subscribe(() => {
   store.getState();
 });
+
+// Check if user is logged in
+store.dispatch(initAuth());
 
 class Routes extends Component {
   render() {

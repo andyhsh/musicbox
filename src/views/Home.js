@@ -15,7 +15,9 @@ class Home extends Component {
     if (!this.props.user.isUserSignedIn) {
       return (
         <div id="login-container">
-          <p>Login with:</p>
+          {this.props.user.hasError ?
+            <p className="flash">{this.props.user.errorMessage}</p> :
+            <p>Login with:</p>}
           <p>
           <SignInButton
             signIn={this.props.signIn}
