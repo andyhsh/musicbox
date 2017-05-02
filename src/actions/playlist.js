@@ -1,11 +1,19 @@
 import Firebase from '../firebase';
 import { YOUTUBE_CONFIG } from '../config';
 
+const firebase = Firebase;
 const firebaseDB = Firebase.database();
 const youtubeApiKey = YOUTUBE_CONFIG;
 /* * *
  * ACTIONS DISPATCHED FROM OTHER ACTION CREATORS
  * * */
+
+function fetchVideosSuccess(videos) {
+  return {
+    type: 'FETCH_VIDEOS_SUCCESS',
+    payload: videos,
+  };
+}
 
 function addVideoSuccess(video) {
   return {
@@ -60,17 +68,41 @@ export function subscribeToPlaylist(toggle, channel) {
       console.log('subscribing to playlist');
       // listen for any new videos queued. Flatten the properties so that the unique ID
       // is easily referenced and immediately dispatch to update redux state
+      let initialFetch = null;
+
+      // to be used as input on initial mounting of channel
       channelRef.on('child_added', snapshot => {
-        const video = {
-          id: snapshot.key,
-          track: snapshot.val().track,
-          videoId: snapshot.val().videoId,
-          duration: snapshot.val().duration,
-          user: snapshot.val().user,
-          stars: snapshot.val().stars,
-          starCount: snapshot.val().starCount,
-        };
-        dispatch(addVideoSuccess(video));
+        if (initialFetch) {
+          const video = {
+            id: snapshot.key,
+            track: snapshot.val().track,
+            videoId: snapshot.val().videoId,
+            duration: snapshot.val().duration,
+            user: snapshot.val().user,
+            stars: snapshot.val().stars,
+            starCount: snapshot.val().starCount,
+            timestamp: snapshot.val().timestamp,
+          };
+          dispatch(addVideoSuccess(video));
+        }
+      });
+
+      channelRef.once('value', snapshot => {
+        initialFetch = true;
+        if (snapshot.val()) {
+          const videos = Object.values(snapshot.val());
+          // const video = {
+          //   id: snapshot.key,
+          //   track: snapshot.val().track,
+          //   videoId: snapshot.val().videoId,
+          //   duration: snapshot.val().duration,
+          //   user: snapshot.val().user,
+          //   stars: snapshot.val().stars,
+          //   starCount: snapshot.val().starCount,
+          // };
+          dispatch(fetchVideosSuccess(videos));
+          dispatch(sortPlaylistSuccess());
+        }
       });
 
       // listen for delete in message and return the deleted video's unique ID
@@ -84,6 +116,7 @@ export function subscribeToPlaylist(toggle, channel) {
       channelRef.on('child_changed', snapshot => {
         const updatedStarCountVideo = {
           id: snapshot.key,
+          // id: snapshot.val().id,
           stars: snapshot.val().stars,
           starCount: snapshot.val().starCount,
         };
@@ -92,9 +125,9 @@ export function subscribeToPlaylist(toggle, channel) {
 
       // On subscription, immediately sort the playlist
       // to ensure that order of playlist is in sync with everyone else in the channel
-      channelRef.once('value', snapshot => {
-        dispatch(sortPlaylistSuccess());
-      });
+      // channelRef.once('value', snapshot => {
+      //   dispatch(sortPlaylistSuccess());
+      // });
     } else if (!toggle) {
       console.log('unsubscribing to playlist');
       // reset state and turn off all firebase event listeners when user exits the channel
@@ -131,7 +164,9 @@ export function addVideo(video, channel, user) {
       })
 
       .then(() => {
-        channelRef.push({
+        const key = channelRef.push().key;
+        const newVideo = {
+          id: key,
           track: video.track,
           videoId: video.videoId,
           duration: trackDuration,
@@ -140,7 +175,10 @@ export function addVideo(video, channel, user) {
           // object key is purely used as a placeholder to access as a property of user.
           stars: { user: 'placeholder' },
           starCount: 0,
-        });
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+        };
+
+        channelRef.child(key).set(newVideo);
       })
       .catch(error => {
         console.log(error);

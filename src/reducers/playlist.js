@@ -1,6 +1,9 @@
 const playlistReducer = (state = [], action) => {
   switch (action.type) {
 
+    case 'FETCH_VIDEOS_SUCCESS':
+      return action.payload;
+
     case 'ADD_VIDEO_SUCCESS':
       return [
         ...state, action.payload,

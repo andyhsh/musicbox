@@ -14,7 +14,7 @@ th, td {
 
 /* lighten color for column descriptions and track # */
 th, td:first-of-type {
-  color: rgba(240, 240, 240, 0.7);
+  color: rgba(240, 240, 240, 0.5);
 }
 
 /* center the upvote value column */

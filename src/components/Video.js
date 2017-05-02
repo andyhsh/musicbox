@@ -9,22 +9,24 @@ class Video extends Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  renderStars() {
-    const userStarred = this.props.currentUser.uid;
-    if (this.props.stars.hasOwnProperty(userStarred)) {
-      return <td><span className="star-icon pointer fa fa-star" onClick={this.handleStar} /></td>;
-    } else if (userStarred) {
-      return <td><span className="star-icon pointer fa fa-star-o" onClick={this.handleStar} /></td>;
-    }
-  }
-
   handleStar(e) {
     e.preventDefault();
     this.props.starVideo(this.props.id, this.props.channel, this.props.currentUser.uid);
   }
 
-  handleDelete() {
+  handleDelete(e) {
+    e.preventDefault();
     this.props.removeVideo(this.props.id, this.props.channel);
+  }
+
+//this.props.stars.hasOwnProperty(userStarred)
+  renderStars() {
+    const userStarred = this.props.currentUser.uid;
+    if (Object.prototype.hasOwnProperty.call(this.props.stars, userStarred)) {
+      return <td><span className="star-icon pointer fa fa-star" onClick={this.handleStar} /></td>;
+    } else if (userStarred) {
+      return <td><span className="star-icon pointer fa fa-star-o" onClick={this.handleStar} /></td>;
+    }
   }
 
   render() {
@@ -35,8 +37,13 @@ class Video extends Component {
         <td>{this.props.number === 1 ? <span className="fa fa-play" /> : this.props.number}</td>
         <td>{this.props.track}</td>
 
-        {/* most mobile devices in landscape mode to see user visible */}
-        <MediaQuery minDeviceWidth={415}>
+        {/* mobile devices in landscape mode to see user visible
+            or device is iPad and above */}
+        <MediaQuery orientation="landscape">
+          <td>{this.props.user}</td>
+        </MediaQuery>
+
+        <MediaQuery minDeviceWidth={768}>
           <td>{this.props.user}</td>
         </MediaQuery>
 
@@ -59,13 +66,13 @@ class Video extends Component {
 }
 
 Video.propTypes = {
-  id: PropTypes.string.isRequired,
   number: PropTypes.number.isRequired,
   track: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   duration: PropTypes.string.isRequired,
   starCount: PropTypes.number.isRequired,
   stars: PropTypes.object.isRequired,
+  channel: PropTypes.string.isRequired,
   starVideo: PropTypes.func,
   removeVideo: PropTypes.func,
 };

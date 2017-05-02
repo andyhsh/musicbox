@@ -30,16 +30,16 @@ class Channel extends Component {
   componentDidMount() {
     this.props.subscribeToPlaylist(true, this.props.match.params.channel);
     this.props.joinChannel(this.props.match.params.channel);
-    // const container = document.getElementById('channel-container');
-    window.addEventListener('mousemove', this.resetTimer);
+    const container = document.getElementById('channel-overlay');
+    container.addEventListener('mousemove', this.resetTimer);
     this.startTimer();
   }
 
   componentWillUnmount() {
     this.props.subscribeToPlaylist(false, this.props.match.params.channel);
     this.props.exitChannel();
-    // const container = document.getElementById('channel-container');
-    window.removeEventListener('mousemove', this.resetTimer);
+    const container = document.getElementById('channel-overlay');
+    container.removeEventListener('mousemove', this.resetTimer);
   }
 
   setMenuButton() {
@@ -80,12 +80,6 @@ class Channel extends Component {
     this.setState({ renderMenuButtons: false });
   }
 
-  renderChannelHeader() {
-    if (this.state.renderMenuButtons) {
-      return <ChannelHeader setMenuButton={this.setMenuButton} />;
-    }
-  }
-
   renderNewVideoNotification() {
     // notification state should be set to true when a user adds a video
     if (this.notification) {
@@ -93,16 +87,37 @@ class Channel extends Component {
     }
   }
 
+  // Default state render overlay to detect mouse movement.
+  // When the menu is open, render the channel directly instead.
+  // toggle active to control z-index
+
+  renderOverlay() {
+    if (this.state.menuOpen) {
+      return <div id="channel-overlay" />;
+    }
+    return <div id="channel-overlay" className="active" />;
+  }
+
+  // renderOverlay() {
+  //   if (!this.state.menuOpen) {
+  //     return <div id="channel-overlay" />;
+  //   }
+  //   return <ChannelHeader setMenuButton={this.setMenuButton} />;
+  // }
+
   render() {
     return (
       <div id="channel-container">
+        {this.renderOverlay()}
         <CSSTransitionGroup
           transitionName="channel-header"
           transitionEnterTimeout={200}
           transitionLeaveTimeout={200}>
-          {this.renderChannelHeader()}
+          {this.state.renderMenuButtons && <ChannelHeader setMenuButton={this.setMenuButton} />}
         </CSSTransitionGroup>
         {this.renderNewVideoNotification()}
+        {this.state.menuOpen && <ChannelHeader setMenuButton={this.setMenuButton} />}
+
         {/* Render Youtubeplayer if playlist exists and media is iPad or bigger */}
         <MediaQuery minDeviceWidth={768}>
           <div className="youtube-player-container">
@@ -113,6 +128,7 @@ class Channel extends Component {
               </p> }
           </div>
         </MediaQuery>
+
         {/* Menu is rendered on toggle button */}
         <MediaQuery minDeviceWidth={768}>
           <CSSTransitionGroup
@@ -122,8 +138,10 @@ class Channel extends Component {
             {this.state.menuOpen && <Menu setMenuButton={this.setMenuButton} />}
           </CSSTransitionGroup>
         </MediaQuery>
-        {/* Render Menu as default if device is smaller than an iPad */}
+
+        {/* Render Menu and exit as default if device is smaller than an iPad */}
         <MediaQuery maxDeviceWidth={767}>
+          <ChannelHeader setMenuButton={this.setMenuButton} />
           <Menu setMenuButton={this.setMenuButton} />
         </MediaQuery>
       </div>
@@ -150,7 +168,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    subscribeToPlaylist: (toggle, channel) => { dispatch(subscribeToPlaylist(toggle, channel)); },
+    subscribeToPlaylist: (toggle, channel, timestamp) => { dispatch(subscribeToPlaylist(toggle, channel, timestamp)); },
     removeVideo: (id, channel) => { dispatch(removeVideo(id, channel)); },
     joinChannel: (channel) => { dispatch(joinChannel(channel)); },
     exitChannel: () => { dispatch(exitChannel()); },

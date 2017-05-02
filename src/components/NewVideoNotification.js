@@ -15,8 +15,8 @@ class NewVideoNotification extends Component {
 
   }
 
-  clearTimer() {
-  // clear timeout
+  resetTimer() {
+  // reset timeout
   }
 
   startTimer() {

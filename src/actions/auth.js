@@ -47,6 +47,7 @@ export function signIn(socialMedia) {
     }
 
     firebase.auth().signInWithPopup(provider).then(function (result) {
+      debugger;
       const { uid, displayName, email } = result.user;
 
       // update firebase with signed in user details

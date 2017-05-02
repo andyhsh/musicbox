@@ -14,9 +14,8 @@ class Menu extends Component {
     if (this.props.playlist[0] !== undefined) {
       return this.props.playlist.map((video, index) => {
         return (
-
-            <Video key={index} number={index + 1} id={video.id} track={video.track} videoId={video.videoId} duration={video.duration} user={video.user} starCount={video.starCount} stars={video.stars} currentUser={this.props.user} channel={this.props.channel} starVideo={this.props.starVideo}
-            removeVideo={this.props.removeVideo} />
+          <Video key={index} number={index + 1} timestamp={video.timestamp} id={video.id} track={video.track} videoId={video.videoId} duration={video.duration} user={video.user} starCount={video.starCount} stars={video.stars} currentUser={this.props.user} channel={this.props.channel} starVideo={this.props.starVideo}
+          removeVideo={this.props.removeVideo} />
 
         );
       });
@@ -29,7 +28,11 @@ class Menu extends Component {
     return (
       <div className="menu gradient-animator">
         <div className="menu-container">
-          <YTsearch addVideo={this.props.addVideo} channel={this.props.channel} user={this.props.user} />
+          <YTsearch
+            addVideo={this.props.addVideo}
+            channel={this.props.channel}
+            user={this.props.user}
+          />
           <div className="playlist-container">
             <table>
               <thead>
@@ -37,7 +40,7 @@ class Menu extends Component {
                   <th>#</th>
                   <th>Track</th>
                   {/* most mobile devices in landscape mode to see user visible */}
-                  <MediaQuery minDeviceWidth={415}>
+                  <MediaQuery orientation="landscape">
                     <th><span className="fa fa-user-o" /></th>
                   </MediaQuery>
 
@@ -69,7 +72,8 @@ Menu.propTypes = {
   user: PropTypes.object.isRequired,
   addVideo: PropTypes.func.isRequired,
   starVideo: PropTypes.func.isRequired,
-}
+  removeVideo: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => {
   return {
