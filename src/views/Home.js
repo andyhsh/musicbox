@@ -19,18 +19,18 @@ class Home extends Component {
             <p className="flash">{this.props.user.errorMessage}</p> :
             <p>Login with:</p>}
           <p>
-          <SignInButton
-            signIn={this.props.signIn}
-            socialMedia="google-plus"
-          />
-          <SignInButton
-            signIn={this.props.signIn}
-            socialMedia="facebook"
-          />
-          <SignInButton
-            signIn={this.props.signIn}
-            socialMedia="twitter"
-          />
+            <SignInButton
+              signIn={this.props.signIn}
+              socialMedia="google-plus"
+            />
+            <SignInButton
+              signIn={this.props.signIn}
+              socialMedia="facebook"
+            />
+            <SignInButton
+              signIn={this.props.signIn}
+              socialMedia="twitter"
+            />
           </p>
         </div>
       );
@@ -69,7 +69,7 @@ Home.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   };
 };
 

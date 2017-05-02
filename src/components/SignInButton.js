@@ -9,9 +9,10 @@ class SignInButton extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
-      console.log('logging in via: ', this.props.socialMedia);
-      this.props.signIn(this.props.socialMedia);
+  handleClick(e) {
+    e.preventDefault();
+    console.log('logging in via: ', this.props.socialMedia);
+    this.props.signIn(this.props.socialMedia);
   }
 
   render() {

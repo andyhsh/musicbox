@@ -6,6 +6,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import ChannelHeader from '../containers/ChannelHeader';
 import Menu from '../containers/Menu';
 import YoutubePlayer from '../components/YoutubePlayer';
+import NewVideoNotification from '../components/NewVideoNotification';
 import { joinChannel, exitChannel } from '../actions/channel';
 import { subscribeToPlaylist, removeVideo } from '../actions/playlist';
 
@@ -60,12 +61,6 @@ class Channel extends Component {
     );
   }
 
-  renderMenu() {
-    if (this.state.menuOpen) {
-      return <Menu setMenuButton={this.setMenuButton} />;
-    }
-  }
-
   startTimer() {
     // call goInactive after no movement
     this.timeoutId = window.setTimeout(this.goInactive, 3000);
@@ -91,6 +86,13 @@ class Channel extends Component {
     }
   }
 
+  renderNewVideoNotification() {
+    // notification state should be set to true when a user adds a video
+    if (this.notification) {
+      return <NewVideoNotification track={'James Blake - The Wilhelm Scream'} user={'Andy Ho'} />;
+    }
+  }
+
   render() {
     return (
       <div id="channel-container">
@@ -98,12 +100,9 @@ class Channel extends Component {
           transitionName="channel-header"
           transitionEnterTimeout={200}
           transitionLeaveTimeout={200}>
-        {this.renderChannelHeader()}
+          {this.renderChannelHeader()}
         </CSSTransitionGroup>
-        {/* Render Menu as default if device is smaller than an iPad */}
-        <MediaQuery maxDeviceWidth={767}>
-          <Menu setMenuButton={this.setMenuButton} />
-        </MediaQuery>
+        {this.renderNewVideoNotification()}
         {/* Render Youtubeplayer if playlist exists and media is iPad or bigger */}
         <MediaQuery minDeviceWidth={768}>
           <div className="youtube-player-container">
@@ -115,12 +114,18 @@ class Channel extends Component {
           </div>
         </MediaQuery>
         {/* Menu is rendered on toggle button */}
-        <CSSTransitionGroup
-          transitionName="menu"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={200}>
-          {this.renderMenu()}
-        </CSSTransitionGroup>
+        <MediaQuery minDeviceWidth={768}>
+          <CSSTransitionGroup
+            transitionName="menu"
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={200}>
+            {this.state.menuOpen && <Menu setMenuButton={this.setMenuButton} />}
+          </CSSTransitionGroup>
+        </MediaQuery>
+        {/* Render Menu as default if device is smaller than an iPad */}
+        <MediaQuery maxDeviceWidth={767}>
+          <Menu setMenuButton={this.setMenuButton} />
+        </MediaQuery>
       </div>
     );
   }
@@ -147,7 +152,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     subscribeToPlaylist: (toggle, channel) => { dispatch(subscribeToPlaylist(toggle, channel)); },
     removeVideo: (id, channel) => { dispatch(removeVideo(id, channel)); },
-    // starVideo: (id, channel, userId) => { dispatch(starVideo(id, channel, userId)); },
     joinChannel: (channel) => { dispatch(joinChannel(channel)); },
     exitChannel: () => { dispatch(exitChannel()); },
   };

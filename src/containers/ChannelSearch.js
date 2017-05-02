@@ -25,23 +25,16 @@ class ChannelSearch extends Component {
     });
   }
 
-  handleRedirect() {
-    if (this.state.redirect) return <Redirect to={`/${this.state.channel}`} />;
-  }
-
   render() {
     return (
       <div id="channel-search-container">
         <form onSubmit={this.handleSubmit}>
           <input id="channel-search-input" placeholder="Search / Join a box" type="text" onChange={this.handleChange} />
         </form>
-        {this.handleRedirect()}
+        {this.state.redirect && <Redirect to={`/${this.state.channel}`} />}
       </div>
     );
   }
 }
-/*
-        <button className="btn btn-default" type="submit" onClick={this.handleClick}><Link to={`/${this.state.channel}`}>Create/Join Channel</Link></button>
-*/
 
 export default ChannelSearch;

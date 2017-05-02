@@ -7,7 +7,8 @@ class SignOutButton extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  handleClick(e) {
+    e.preventDefault();
     this.props.signOut();
   }
 

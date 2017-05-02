@@ -18,7 +18,8 @@ class Video extends Component {
     }
   }
 
-  handleStar() {
+  handleStar(e) {
+    e.preventDefault();
     this.props.starVideo(this.props.id, this.props.channel, this.props.currentUser.uid);
   }
 
@@ -31,7 +32,7 @@ class Video extends Component {
 
     return (
       <tr>
-        <td>{this.props.number}</td>
+        <td>{this.props.number === 1 ? <span className="fa fa-play" /> : this.props.number}</td>
         <td>{this.props.track}</td>
 
         {/* most mobile devices in landscape mode to see user visible */}
@@ -58,12 +59,15 @@ class Video extends Component {
 }
 
 Video.propTypes = {
+  id: PropTypes.string.isRequired,
   number: PropTypes.number.isRequired,
   track: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   duration: PropTypes.string.isRequired,
   starCount: PropTypes.number.isRequired,
   stars: PropTypes.object.isRequired,
+  starVideo: PropTypes.func,
+  removeVideo: PropTypes.func,
 };
 
 export default Video;

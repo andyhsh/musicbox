@@ -89,6 +89,11 @@ p {
 	padding-bottom: 0.5rem;
 }
 
+#channel-container {
+	height: 100%;
+	width: 100%;
+}
+
 #channel-search-container {
 
 }
@@ -125,4 +130,31 @@ p {
 
 #login-container {
 	text-align: center;
+}
+
+.notification-container {
+	z-index: 10;
+	position: fixed;
+	top: 0;
+	left: 50%;
+	margin-left: -25%;
+	width: 50%;
+	border-radius: 0 0 20px 20px;
+}
+
+.notification {
+	padding: 10px 20px;
+}
+
+.notification p {
+	font-style: italic;
+}
+
+.notification-track {
+	font-size: 1.3rem;
+	font-weight: bolder;
+}
+
+.notification-user {
+	padding-top: 5px;
 }

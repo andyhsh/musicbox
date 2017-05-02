@@ -57,7 +57,6 @@ class Menu extends Component {
               </tbody>
             </table>
           </div>
-
         </div>
       </div>
     );
