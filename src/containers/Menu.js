@@ -22,6 +22,10 @@ class Menu extends Component {
     }
   }
 
+  renderChannelInfo() {
+
+  }
+
   render() {
     const userLoggedIn = this.props.user.uid;
 
@@ -60,6 +64,10 @@ class Menu extends Component {
               </tbody>
             </table>
           </div>
+          <MediaQuery minDeviceWidth={768}>
+            {this.renderChannelInfo()}
+          </MediaQuery>
+          {this.render}
         </div>
       </div>
     );

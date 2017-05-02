@@ -51,12 +51,13 @@ table {
 
 body {
   color: rgb(235, 235, 235);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .home-container {
 	display: flex;
-	/* flex-direction: column; */
-
+	display: -webkit-flex;
 	height: 100%;
   align-items: center; /* controls vertical axis */
   justify-content: center; /* controls horizontal axis */

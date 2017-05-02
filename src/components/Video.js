@@ -19,7 +19,7 @@ class Video extends Component {
     this.props.removeVideo(this.props.id, this.props.channel);
   }
 
-//this.props.stars.hasOwnProperty(userStarred)
+  // this.props.stars.hasOwnProperty(userStarred)
   renderStars() {
     const userStarred = this.props.currentUser.uid;
     if (Object.prototype.hasOwnProperty.call(this.props.stars, userStarred)) {

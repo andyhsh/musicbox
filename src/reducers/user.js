@@ -25,8 +25,9 @@ const userReducer = (state = userInitialState, action) => {
     case 'SIGN_OUT_SUCCESS':
       return {
         ...state,
-        isUserSignedIn: false,
         displayName: 'Anonymous',
+        uid: '',
+        isUserSignedIn: false,
       };
     case 'SIGN_OUT_ERROR':
       return {
