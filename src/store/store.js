@@ -4,6 +4,7 @@ import logger from 'redux-logger'; // useful log messages for redux state change
 import playlistReducer from '../reducers/playlist';
 import userReducer from '../reducers/user';
 import channelReducer from '../reducers/channel';
+import notificationReducer from '../reducers/notification';
 
 const initStore = () => {
 
@@ -27,6 +28,7 @@ const initStore = () => {
     playlist: playlistReducer,
     user: userReducer,
     channel: channelReducer,
+    notification: notificationReducer,
   });
 
   const store = createStore(rootReducer, compose(

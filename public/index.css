@@ -153,6 +153,7 @@ p {
 	margin-left: -25%;
 	width: 50%;
 	border-radius: 0 0 20px 20px;
+	opacity: 0.8;
 }
 
 .notification {
@@ -170,4 +171,22 @@ p {
 
 .notification-user {
 	padding-top: 5px;
+}
+
+.notification-popup-enter {
+  opacity: 0.01;
+}
+
+.notification-popup-enter.notification-popup-enter-active {
+  opacity: 0.8;
+  transition: opacity 300ms ease-in;
+}
+
+.notification-popup-leave {
+  opacity: 0.8;
+}
+
+.notification-popup-leave.notification-popup-leave-active {
+  opacity: 0.01;
+  transition: opacity 200ms ease-in;
 }

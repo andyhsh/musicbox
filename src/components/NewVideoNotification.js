@@ -4,23 +4,33 @@ import PropTypes from 'prop-types';
 class NewVideoNotification extends Component {
 
   componentDidMount() {
-  // start a timer function
+  // start timer function
+    this.startTimer();
   }
 
-  componentWillReceiveProps() {
-  // reset timer function
+  componentWillReceiveProps(nextProps) {
+  // reset timer function upon update on props
+    if (nextProps.track) {
+      this.startTimer();
+    }
   }
 
   componentWillUnmount() {
-
+    this.resetTimer();
   }
 
   resetTimer() {
-  // reset timeout
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+    }
   }
 
   startTimer() {
   // dispatch an action to set notification to false after certain period of time
+    this.resetTimer();
+    this.timerId = setTimeout(() => {
+      this.props.dismissNotification();
+    }, 4000);
   }
 
   render() {
@@ -39,6 +49,7 @@ class NewVideoNotification extends Component {
 NewVideoNotification.propTypes = {
   track: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
+  dismissNotification: PropTypes.func.isRequired,
 };
 
 export default NewVideoNotification;

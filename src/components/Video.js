@@ -39,7 +39,7 @@ class Video extends Component {
 
         {/* mobile devices in landscape mode to see user visible
             or device is iPad and above */}
-        <MediaQuery orientation="landscape">
+        <MediaQuery maxDeviceWidth={767} orientation="landscape">
           <td>{this.props.user}</td>
         </MediaQuery>
 

@@ -54,6 +54,19 @@ function sortPlaylistSuccess(updatedStarCountVideo) {
   };
 }
 
+function notification(video) {
+  return {
+    type: 'ADD_VIDEO_NOTIFICATION',
+    payload: video,
+  };
+}
+
+export function dismissNotification() {
+  return {
+    type: 'ADD_VIDEO_NOTIFICATION_DISMISS',
+  };
+}
+
 /* * *
  * ACTIONS DISPATCHED FROM COMPONENTS DIRECTLY
  * * */
@@ -84,6 +97,7 @@ export function subscribeToPlaylist(toggle, channel) {
             timestamp: snapshot.val().timestamp,
           };
           dispatch(addVideoSuccess(video));
+          dispatch(notification(video));
         }
       });
 

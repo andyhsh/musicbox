@@ -8,7 +8,7 @@ import Menu from '../containers/Menu';
 import YoutubePlayer from '../components/YoutubePlayer';
 import NewVideoNotification from '../components/NewVideoNotification';
 import { joinChannel, exitChannel } from '../actions/channel';
-import { subscribeToPlaylist, removeVideo } from '../actions/playlist';
+import { subscribeToPlaylist, removeVideo, dismissNotification } from '../actions/playlist';
 
 import '../styles/channel.css';
 
@@ -80,13 +80,6 @@ class Channel extends Component {
     this.setState({ renderMenuButtons: false });
   }
 
-  renderNewVideoNotification() {
-    // notification state should be set to true when a user adds a video
-    if (this.notification) {
-      return <NewVideoNotification track={'James Blake - The Wilhelm Scream'} user={'Andy Ho'} />;
-    }
-  }
-
   // Default state render overlay to detect mouse movement.
   // When the menu is open, render the channel directly instead.
   // toggle active to control z-index
@@ -98,13 +91,6 @@ class Channel extends Component {
     return <div id="channel-overlay" className="active" />;
   }
 
-  // renderOverlay() {
-  //   if (!this.state.menuOpen) {
-  //     return <div id="channel-overlay" />;
-  //   }
-  //   return <ChannelHeader setMenuButton={this.setMenuButton} />;
-  // }
-
   render() {
     return (
       <div id="channel-container">
@@ -115,7 +101,17 @@ class Channel extends Component {
           transitionLeaveTimeout={200}>
           {this.state.renderMenuButtons && <ChannelHeader setMenuButton={this.setMenuButton} />}
         </CSSTransitionGroup>
-        {this.renderNewVideoNotification()}
+
+        {/* Notification pop up for new tracks added */}
+        <MediaQuery minDeviceWidth={768}>
+          <CSSTransitionGroup
+            transitionName="notification-popup"
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={200}>
+          {this.props.notification && <NewVideoNotification track={this.props.notification.track} user={this.props.notification.user} dismissNotification={this.props.dismissNotification} />}
+          </CSSTransitionGroup>
+        </MediaQuery>
+
         {this.state.menuOpen && <ChannelHeader setMenuButton={this.setMenuButton} />}
 
         {/* Render Youtubeplayer if playlist exists and media is iPad or bigger */}
@@ -157,12 +153,15 @@ Channel.propTypes = {
   // starVideo: PropTypes.func.isRequired,
   joinChannel: PropTypes.func.isRequired,
   exitChannel: PropTypes.func.isRequired,
+  notification: PropTypes.object.isRequired,
+  dismissNotification: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     playlist: state.playlist,
     channel: state.channel,
+    notification: state.notification,
   };
 };
 
@@ -172,6 +171,7 @@ const mapDispatchToProps = (dispatch) => {
     removeVideo: (id, channel) => { dispatch(removeVideo(id, channel)); },
     joinChannel: (channel) => { dispatch(joinChannel(channel)); },
     exitChannel: () => { dispatch(exitChannel()); },
+    dismissNotification: () => { dispatch(dismissNotification()); },
   };
 };
 
