@@ -30,7 +30,7 @@ class NewVideoNotification extends Component {
     this.resetTimer();
     this.timerId = setTimeout(() => {
       this.props.dismissNotification();
-    }, 4000);
+    }, 5000);
   }
 
   render() {

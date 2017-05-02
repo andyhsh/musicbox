@@ -167,14 +167,19 @@ export function addVideo(video, channel, user) {
       .then(parsedResponse => {
         // Track duration format "PT8M2S". Split minutes and seconds components
         // and check whether seconds is less than 10, if so add 0 in front for formatting
+        // PT51S   PT3M45S
         trackDuration = parsedResponse.items[0].contentDetails.duration;
         const parts = trackDuration.slice(0, -1).split('M');
         const minutesComponent = parts[0].replace('PT', '');
-        let secondsComponent = parts[1];
+        let secondsComponent = parts[1] || '';
         if (secondsComponent.length === 1) {
           secondsComponent = '0'.concat(secondsComponent);
         }
-        trackDuration = minutesComponent.concat(':').concat(secondsComponent);
+        if (!secondsComponent) {
+          trackDuration = '0:'.concat(minutesComponent);
+        } else {
+          trackDuration = minutesComponent.concat(':').concat(secondsComponent);
+        }
       })
 
       .then(() => {

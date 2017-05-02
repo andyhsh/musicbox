@@ -29,7 +29,7 @@ class YoutubePlayer extends Component {
       width: '100%',
       playerVars: { // https://developers.google.com/youtube/player_parameters
         autoplay: 1, // automatically play video
-        controls: 1, // hide controls
+        controls: 0, // hide controls
         disablekb: 0, // allow keyboard control
         modestbranding: 1, // remove watermark/logo
         iv_load_policy: 3, // disable anotations

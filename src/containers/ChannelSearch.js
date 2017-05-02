@@ -14,7 +14,7 @@ class ChannelSearch extends Component {
 
   handleChange(e) {
     this.setState({
-      channel: e.target.value,
+      channel: e.target.value.toLowerCase(),
     });
   }
 

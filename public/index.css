@@ -148,11 +148,9 @@ p {
 .notification-container {
 	z-index: 10;
 	position: fixed;
-	top: 0;
-	left: 50%;
-	margin-left: -25%;
-	width: 50%;
-	border-radius: 0 0 20px 20px;
+	bottom: 0;
+	right: 0;
+	max-width: 25%;
 	opacity: 0.8;
 }
 
