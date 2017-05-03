@@ -148,10 +148,9 @@ p {
 .notification-container {
 	z-index: 10;
 	position: fixed;
-	bottom: 0;
 	right: 0;
+	bottom: 0%;
 	max-width: 25%;
-	opacity: 0.8;
 }
 
 .notification {
@@ -160,31 +159,40 @@ p {
 
 .notification p {
 	font-style: italic;
+	font-size: 1.3rem;
+	color: rgba(235, 235, 235, 0.7);
 }
 
 .notification-track {
-	font-size: 1.3rem;
+	font-size: 1.6rem;
 	font-weight: bolder;
 }
 
 .notification-user {
 	padding-top: 5px;
+	font-size: 1.1rem;
+	color: rgba(235, 235, 235, 0.7);
 }
 
+/* react CSS Transitions */
 .notification-popup-enter {
   opacity: 0.01;
+	bottom: -20%;
 }
 
 .notification-popup-enter.notification-popup-enter-active {
   opacity: 0.8;
-  transition: opacity 300ms ease-in;
+	bottom: 0%;
+  transition: opacity 400ms ease-in, bottom 500ms ease-in;
 }
 
 .notification-popup-leave {
   opacity: 0.8;
+	bottom: 0%;
 }
 
 .notification-popup-leave.notification-popup-leave-active {
   opacity: 0.01;
-  transition: opacity 200ms ease-in;
+	bottom: -20%;
+  transition: opacity 300ms ease-in, bottom 400ms ease-in;
 }

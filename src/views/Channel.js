@@ -106,8 +106,8 @@ class Channel extends Component {
         <MediaQuery minDeviceWidth={768}>
           <CSSTransitionGroup
             transitionName="notification-popup"
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={200}>
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={400}>
           {this.props.notification && <NewVideoNotification track={this.props.notification.track} user={this.props.notification.user} dismissNotification={this.props.dismissNotification} />}
           </CSSTransitionGroup>
         </MediaQuery>

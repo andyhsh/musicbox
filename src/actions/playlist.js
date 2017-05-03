@@ -83,7 +83,6 @@ export function subscribeToPlaylist(toggle, channel) {
       // is easily referenced and immediately dispatch to update redux state
       let initialFetch = null;
 
-      // to be used as input on initial mounting of channel
       channelRef.on('child_added', snapshot => {
         if (initialFetch) {
           const video = {
@@ -160,7 +159,6 @@ export function addVideo(video, channel, user) {
     const moreVideoData = `https://www.googleapis.com/youtube/v3/videos?id=${video.videoId}&part=contentDetails&key=${youtubeApiKey}`;
     let trackDuration;
     const channelRef = firebaseDB.ref(`/channels/${channel}`);
-
     // Make another api call for track duration information
     fetch(moreVideoData)
       .then(response => response.json())
@@ -198,7 +196,22 @@ export function addVideo(video, channel, user) {
         };
 
         channelRef.child(key).set(newVideo);
+
+        // update counter for database
+        // Check if song exists, if none then create. Otherwise increment counter.
+        // counterRef.transaction(updateCounter => {
+        //   debugger;
+        //
+          // if (updateCounter === null) {
+          //   const createVideo = {
+          //     track: video.track,
+          //     counter: 1,
+          //   }
+          //   return createVideo;
+          // }
+          // updateCounter.counter++;
       })
+
       .catch(error => {
         console.log(error);
         dispatch(addVideoError());
