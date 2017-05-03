@@ -115,17 +115,9 @@ export function subscribeToPlaylist(toggle, channel) {
 
       channelRef.once('value', snapshot => {
         initialFetch = true;
+        debugger;
         if (snapshot.val()) {
           const videos = Object.values(snapshot.val());
-          // const video = {
-          //   id: snapshot.key,
-          //   track: snapshot.val().track,
-          //   videoId: snapshot.val().videoId,
-          //   duration: snapshot.val().duration,
-          //   user: snapshot.val().user,
-          //   stars: snapshot.val().stars,
-          //   starCount: snapshot.val().starCount,
-          // };
           dispatch(fetchVideosSuccess(videos));
           dispatch(sortPlaylistSuccess());
         }
@@ -159,8 +151,10 @@ export function subscribeToPlaylist(toggle, channel) {
       // reset state and turn off all firebase event listeners when user exits the channel
       channelRef.off('child_added');
       channelRef.off('child_removed');
+      channelRef.off('child_changed');
       channelRef.off('value');
       dispatch(resetState());
+      dispatch(dismissNowPlaying());
     }
   };
 }

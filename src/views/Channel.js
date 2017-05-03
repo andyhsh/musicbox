@@ -26,7 +26,7 @@ class Channel extends Component {
     this.resetTimer = this.resetTimer.bind(this);
     this.goActive = this.goActive.bind(this);
     this.goInactive = this.goInactive.bind(this);
-    this.timeoutId = null;
+    //this.timeoutId = null;
     this.state = {
       menuOpen: false,
       renderMenuButtons: false,
@@ -72,11 +72,17 @@ class Channel extends Component {
 
   startTimer() {
     // call goInactive after no movement
-    this.timeoutId = window.setTimeout(this.goInactive, 3000);
+    //bthis.timeoutId = window.setTimeout(this.goInactive, 3000);
+    this.timeoutId = setTimeout(() => {
+      this.goInactive();
+    }, 3000);
   }
 
   resetTimer() {
-    window.clearTimeout(this.timeoutId);
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+    //window.clearTimeout(this.timeoutId);
     this.goActive();
   }
 
@@ -86,6 +92,9 @@ class Channel extends Component {
   }
 
   goInactive() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
     this.setState({ renderMenuButtons: false });
   }
 

@@ -200,7 +200,7 @@ p {
 .nowplaying-container {
 	position: fixed;
 	height: 100%;
-	max-width: 40%;
+	max-width: 35%;
 	top: 0;
 	z-index: 4;
 	opacity: 0.9;
@@ -221,7 +221,7 @@ p {
 }
 
 .nowplaying {
-	margin-top: 50%;
+	margin-top: 65%;
 	margin-left: 5%;
 	margin-right: 5%;
 }
