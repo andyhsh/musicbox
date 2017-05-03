@@ -67,6 +67,19 @@ export function dismissNotification() {
   };
 }
 
+export function addNowPlaying(video) {
+  return {
+    type: 'NOW_PLAYING',
+    payload: video,
+  };
+}
+
+export function dismissNowPlaying() {
+  return {
+    type: 'NOW_PLAYING_DISMISS',
+  };
+}
+
 /* * *
  * ACTIONS DISPATCHED FROM COMPONENTS DIRECTLY
  * * */

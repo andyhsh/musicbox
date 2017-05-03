@@ -14,6 +14,7 @@ class ChannelHeader extends Component {
         {/* Only master device (iPad and above) need to have menu toggle */}
         <MediaQuery minDeviceWidth={768}>
           <span className="pointer playlist-menu fa fa-bars" onClick={this.props.setMenuButton} />
+          <span className="next-song pointer fa fa-step-forward" onClick={this.props.nextPlaylist} />
         </MediaQuery>
       </header>
     );
@@ -22,6 +23,7 @@ class ChannelHeader extends Component {
 
 ChannelHeader.propTypes = {
   setMenuButton: PropTypes.func.isRequired,
+  nextPlaylist: PropTypes.func,
 };
 
 export default ChannelHeader;

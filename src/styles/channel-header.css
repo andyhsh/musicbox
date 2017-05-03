@@ -4,19 +4,25 @@
   left: 50%;
   top: 2%;
   margin-left: -45%;
-  font-size: 28px;
+  font-size: 3rem;
+  color: rgba(240, 240, 240, 0.8);
   z-index: 10;
 }
 
 .exit-channel {
   float: right;
-  color: rgba(240, 240, 240, 0.7);
+  color: rgba(240, 240, 240, 0.8);
 }
 
 
 .playlist-menu {
   float: left;
-  color: rgba(240, 240, 240, 0.7);
+}
+
+.next-song {
+  position: fixed;
+  right: 5.5%;
+  top: 48%;
 }
 
 /* react css transition group */

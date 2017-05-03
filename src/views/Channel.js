@@ -7,8 +7,14 @@ import ChannelHeader from '../containers/ChannelHeader';
 import Menu from '../containers/Menu';
 import YoutubePlayer from '../components/YoutubePlayer';
 import NewVideoNotification from '../components/NewVideoNotification';
+import NowPlaying from '../components/NowPlaying';
 import { joinChannel, exitChannel } from '../actions/channel';
-import { subscribeToPlaylist, removeVideo, dismissNotification } from '../actions/playlist';
+import { subscribeToPlaylist,
+  removeVideo,
+  dismissNotification,
+  addNowPlaying,
+  dismissNowPlaying,
+} from '../actions/playlist';
 
 import '../styles/channel.css';
 
@@ -16,6 +22,7 @@ class Channel extends Component {
   constructor(props) {
     super(props);
     this.setMenuButton = this.setMenuButton.bind(this);
+    this.nextPlaylist = this.nextPlaylist.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
     this.goActive = this.goActive.bind(this);
     this.goInactive = this.goInactive.bind(this);
@@ -48,7 +55,7 @@ class Channel extends Component {
 
   // Render Youtubeplayer player after checking if any playlist added
   renderYoutubePlayer() {
-    const { videoId, id } = this.props.playlist[0];
+    const { videoId, id, track } = this.props.playlist[0];
 
     return (
       <YoutubePlayer
@@ -57,6 +64,8 @@ class Channel extends Component {
         videoId={videoId}
         removeVideo={this.props.removeVideo}
         channel={this.props.match.params.channel}
+        addNowPlaying={this.props.addNowPlaying}
+        track={track}
       />
     );
   }
@@ -91,6 +100,10 @@ class Channel extends Component {
     return <div id="channel-overlay" className="active" />;
   }
 
+  nextPlaylist() {
+    this.props.removeVideo(this.props.playlist[0].id, this.props.match.params.channel);
+  }
+
   render() {
     return (
       <div id="channel-container">
@@ -99,8 +112,13 @@ class Channel extends Component {
           transitionName="channel-header"
           transitionEnterTimeout={200}
           transitionLeaveTimeout={200}>
-          {this.state.renderMenuButtons && <ChannelHeader setMenuButton={this.setMenuButton} />}
+          {this.state.renderMenuButtons && <ChannelHeader setMenuButton={this.setMenuButton} nextPlaylist={this.nextPlaylist} />}
         </CSSTransitionGroup>
+
+        {/* Now Playing track pop up */}
+        <MediaQuery minDeviceWidth={768}>
+          {this.props.nowPlaying && <NowPlaying track={this.props.nowPlaying} dismissNowPlaying={this.props.dismissNowPlaying} />}
+        </MediaQuery>
 
         {/* Notification pop up for new tracks added */}
         <MediaQuery minDeviceWidth={768}>
@@ -112,7 +130,7 @@ class Channel extends Component {
           </CSSTransitionGroup>
         </MediaQuery>
 
-        {this.state.menuOpen && <ChannelHeader setMenuButton={this.setMenuButton} />}
+        {this.state.menuOpen && <ChannelHeader setMenuButton={this.setMenuButton} nextPlaylist={this.nextPlaylist} />}
 
         {/* Render Youtubeplayer if playlist exists and media is iPad or bigger */}
         <MediaQuery minDeviceWidth={768}>
@@ -150,11 +168,11 @@ Channel.propTypes = {
   match: PropTypes.object.isRequired,
   removeVideo: PropTypes.func.isRequired,
   subscribeToPlaylist: PropTypes.func.isRequired,
-  // starVideo: PropTypes.func.isRequired,
   joinChannel: PropTypes.func.isRequired,
   exitChannel: PropTypes.func.isRequired,
-  notification: PropTypes.object.isRequired,
   dismissNotification: PropTypes.func.isRequired,
+  addNowPlaying: PropTypes.func.isRequired,
+  dismissNowPlaying: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -162,6 +180,7 @@ const mapStateToProps = (state) => {
     playlist: state.playlist,
     channel: state.channel,
     notification: state.notification,
+    nowPlaying: state.nowPlaying,
   };
 };
 
@@ -172,6 +191,8 @@ const mapDispatchToProps = (dispatch) => {
     joinChannel: (channel) => { dispatch(joinChannel(channel)); },
     exitChannel: () => { dispatch(exitChannel()); },
     dismissNotification: () => { dispatch(dismissNotification()); },
+    addNowPlaying: (video) => { dispatch(addNowPlaying(video)); },
+    dismissNowPlaying: () => { dispatch(dismissNowPlaying()); },
   };
 };
 

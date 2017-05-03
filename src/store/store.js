@@ -5,6 +5,7 @@ import playlistReducer from '../reducers/playlist';
 import userReducer from '../reducers/user';
 import channelReducer from '../reducers/channel';
 import notificationReducer from '../reducers/notification';
+import nowPlayingReducer from '../reducers/nowplaying';
 
 const initStore = () => {
 
@@ -29,6 +30,7 @@ const initStore = () => {
     user: userReducer,
     channel: channelReducer,
     notification: notificationReducer,
+    nowPlaying: nowPlayingReducer,
   });
 
   const store = createStore(rootReducer, compose(

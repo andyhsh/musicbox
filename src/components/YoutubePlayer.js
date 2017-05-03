@@ -7,14 +7,13 @@ import '../styles/channel.css';
 class YoutubePlayer extends Component {
   constructor(props) {
     super(props);
-    this.onReady = this.onReady.bind(this);
+    this.onPlay = this.onPlay.bind(this);
     this.onEnd = this.onEnd.bind(this);
   }
 
-  onReady() {
-    // access to player in all event handlers via event.target
-    // e.target.pauseVideo();
-    console.log('playing video: ', this.props.videoId);
+  onPlay() {
+    console.log('playing video: ', this.props.track);
+    this.props.addNowPlaying(this.props.track);
   }
 
   // Once video has finished playing, dispatch action to update playlist by removing the first obj
@@ -43,7 +42,7 @@ class YoutubePlayer extends Component {
         className="youtube-player"
         videoId={this.props.videoId}
         opts={opts}
-        onReady={this.onReady}
+        onPlay={this.onPlay}
         onEnd={this.onEnd}
       />
     );
@@ -55,6 +54,7 @@ YoutubePlayer.propTypes = {
   removeVideo: PropTypes.func.isRequired,
   channel: PropTypes.string.isRequired,
   videoId: PropTypes.string.isRequired,
+  nowPlaying: PropTypes.func.isRequired,
 };
 
 export default YoutubePlayer;
