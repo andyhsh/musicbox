@@ -8,17 +8,40 @@ class NowPlaying extends Component {
     this.startTimer();
   }
 
+  componentWillUnmount() {
+    this.resetTimer();
+  }
+
+  resetTimer() {
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+    }
+  }
+
   startTimer() {
   // dispatch an action to set notification to false after certain period of time
+    this.resetTimer();
     this.timerId = setTimeout(() => {
       this.props.dismissNowPlaying();
     }, 5000);
   }
 
   render() {
+    let artist = 'Now Playing';
+    let trackName = this.props.track;
+    // if track name contains -, split to artist and trackName components
+    if (trackName.includes('-')) {
+      const track = trackName.split('-');
+      artist = track[0].trim();
+      trackName = track[1].trim();
+    }
+
     return (
-      <div className="nowPlaying-container gradient-animator">
-        <h2>{this.props.track}</h2>
+      <div className="nowplaying-container gradient-animator">
+        <div className="nowplaying">
+          <h1>{artist}</h1>
+          <h2>{trackName}</h2>
+        </div>
       </div>
     );
   }

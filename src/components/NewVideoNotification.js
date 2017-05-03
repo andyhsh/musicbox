@@ -9,8 +9,10 @@ class NewVideoNotification extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-  // reset timer function upon update on props
-    if (nextProps.track) {
+  // reset timer function upon update on props.
+  // nextProps is the props about to be received, while this.props still refers
+  // to prior props about to be replaced.
+    if (nextProps.track !== this.props.track) {
       this.startTimer();
     }
   }

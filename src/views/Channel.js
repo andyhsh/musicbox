@@ -117,7 +117,12 @@ class Channel extends Component {
 
         {/* Now Playing track pop up */}
         <MediaQuery minDeviceWidth={768}>
-          {this.props.nowPlaying && <NowPlaying track={this.props.nowPlaying} dismissNowPlaying={this.props.dismissNowPlaying} />}
+          <CSSTransitionGroup
+            transitionName="nowplaying"
+            transitionEnterTimeout={400}
+            transitionLeaveTimeout={300}>
+            {this.props.nowPlaying && <NowPlaying track={this.props.nowPlaying} dismissNowPlaying={this.props.dismissNowPlaying} />}
+          </CSSTransitionGroup>
         </MediaQuery>
 
         {/* Notification pop up for new tracks added */}

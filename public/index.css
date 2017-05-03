@@ -196,3 +196,50 @@ p {
 	bottom: -20%;
   transition: opacity 300ms ease-in, bottom 400ms ease-in;
 }
+
+.nowplaying-container {
+	position: fixed;
+	height: 100%;
+	max-width: 40%;
+	top: 0;
+	z-index: 4;
+	opacity: 0.9;
+	text-transform: uppercase;
+}
+
+.nowplaying-container h1 {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 800;
+	font-size: 3rem;
+	margin-bottom: 10%;
+}
+
+.nowplaying-container h2 {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: 2rem;
+}
+
+.nowplaying {
+	margin-top: 50%;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+.nowplaying-enter {
+	left: -50%;
+}
+
+.nowplaying-enter.nowplaying-enter-active {
+	left: 0%;
+	transition: left 400ms ease-in;
+}
+
+.nowplaying-leave {
+	left: 0%;
+}
+
+.nowplaying-leave.nowplaying-leave-active {
+	left: -50%;
+	transition: left 300ms ease-in;
+}
