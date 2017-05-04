@@ -115,9 +115,21 @@ export function subscribeToPlaylist(toggle, channel) {
 
       channelRef.once('value', snapshot => {
         initialFetch = true;
-        debugger;
-        if (snapshot.val()) {
-          const videos = Object.values(snapshot.val());
+        let videos = snapshot.val();
+
+        // Object.values function not available in certain older version safaris
+        // Fallback to for...in loop if not available
+        if (videos) {
+          if (Object.values) {
+            videos = Object.values(videos);
+          } else {
+            const newVideos = [];
+            for (const key in videos) {
+              newVideos.push(videos[key]);
+            }
+            videos = newVideos;
+          }
+
           dispatch(fetchVideosSuccess(videos));
           dispatch(sortPlaylistSuccess());
         }
@@ -134,7 +146,6 @@ export function subscribeToPlaylist(toggle, channel) {
       channelRef.on('child_changed', snapshot => {
         const updatedStarCountVideo = {
           id: snapshot.key,
-          // id: snapshot.val().id,
           stars: snapshot.val().stars,
           starCount: snapshot.val().starCount,
         };
@@ -172,7 +183,6 @@ export function addVideo(video, channel, user) {
       .then(parsedResponse => {
         // Track duration format "PT8M2S". Split minutes and seconds components
         // and check whether seconds is less than 10, if so add 0 in front for formatting
-        // PT51S   PT3M45S
         trackDuration = parsedResponse.items[0].contentDetails.duration;
         const parts = trackDuration.slice(0, -1).split('M');
         const minutesComponent = parts[0].replace('PT', '');
@@ -186,7 +196,6 @@ export function addVideo(video, channel, user) {
           trackDuration = minutesComponent.concat(':').concat(secondsComponent);
         }
       })
-
       .then(() => {
         const key = channelRef.push().key;
         const newVideo = {
@@ -203,22 +212,7 @@ export function addVideo(video, channel, user) {
         };
 
         channelRef.child(key).set(newVideo);
-
-        // update counter for database
-        // Check if song exists, if none then create. Otherwise increment counter.
-        // counterRef.transaction(updateCounter => {
-        //   debugger;
-        //
-          // if (updateCounter === null) {
-          //   const createVideo = {
-          //     track: video.track,
-          //     counter: 1,
-          //   }
-          //   return createVideo;
-          // }
-          // updateCounter.counter++;
       })
-
       .catch(error => {
         console.log(error);
         dispatch(addVideoError());

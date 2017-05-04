@@ -72,17 +72,17 @@ class Channel extends Component {
 
   startTimer() {
     // call goInactive after no movement
-    //bthis.timeoutId = window.setTimeout(this.goInactive, 3000);
+    // this.timeoutId = window.setTimeout(this.goInactive, 3000);
     this.timeoutId = setTimeout(() => {
       this.goInactive();
-    }, 3000);
+    }, 1000000);
   }
 
   resetTimer() {
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
-    //window.clearTimeout(this.timeoutId);
+    // window.clearTimeout(this.timeoutId);
     this.goActive();
   }
 
